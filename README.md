@@ -78,27 +78,35 @@ git submodule add https://github.com/amishsde/openxcode.git .agents/plugins/open
   Enforces strict minimalism: refuses speculative features, favors single-function solutions, and eliminates boilerplate.
 
 - `/openxcode-audit`  
-  Reviews the codebase and highlights areas of over-engineering, unused code, and candidate areas for standard library replacement.
+  Reviews the codebase and highlights areas of over-engineering, redundant dependencies, dead code, and security vulnerabilities.
+
+- `/openxcode-security`  
+  Executes an in-depth, industry-standard Application Security (AppSec) audit aligned with OWASP Top 10 and CWE standards.
 
 ### Natural Interaction
 
 You can also prompt the agent directly:
+- *"Perform a security audit on this repository using @openxcode"*
+- *"Check our authentication and database queries for OWASP vulnerabilities"*
 - *"Review this module using @openxcode"*
 - *"Refactor this service with clean, minimal code"*
-- *"Identify redundant dependencies in this repository"*
+- *"Identify redundant dependencies and security risks in this repository"*
 
 ---
 
-## Quality & Reliability Boundaries
+## Security & Reliability Standards (OWASP Top 10 Aligned)
 
-OpenXCode prioritizes simplicity without compromising system reliability:
-- **Input Validation**: Boundary checks and contract validations are never omitted.
-- **Error Handling**: Graceful exceptions and defensive operations protecting user data are maintained.
-- **Accessibility & Security**: Standard security practices and semantic accessibility compliance remain strictly enforced.
-- **Context Tracing**: The model inspects the complete caller chain before applying any logic adjustments.
+OpenXCode prioritizes simplicity without compromising security or system reliability:
+- **Zero Secrets in Code (OWASP A07)**: Strict prohibition of hardcoded API keys, JWT secrets, passwords, or tokens. Enforces runtime environment configuration (`.env`).
+- **Input Validation & Injection Prevention (OWASP A03)**: Comprehensive schema/type validation and parameterized queries to prevent SQLi, NoSQLi, XSS, SSRF, Path Traversal, and Command Injection.
+- **Access Control & Least Privilege (OWASP A01)**: Verified authentication and authorization at all API and data layers; prevents IDOR.
+- **Safe Error Handling & Data Leak Prevention (OWASP A05)**: Stack traces and internal database schemas are never leaked in client-facing responses or logs.
+- **Secure Cryptography & Transport (OWASP A02)**: Standard hashing (Argon2/bcrypt/SHA-256) and secure web transport (HTTPS, `HttpOnly`, `SameSite` cookies).
+- **Context & Blast Radius**: The model inspects the complete caller chain and impact radius before making modifications.
 
 ---
 
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
+

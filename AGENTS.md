@@ -23,9 +23,12 @@ When troubleshooting bugs:
 - Deliver changes with the smallest accurate diff necessary once the execution path is fully understood.
 - When choosing between two valid standard library approaches, choose the one with superior edge-case correctness.
 
-### Non-Negotiable Standards
-Simplicity does not mean sacrificing engineering rigor:
-- Maintain thorough input validation across public APIs and trust boundaries.
-- Preserve error handling that safeguards data integrity and user state.
-- Strictly adhere to established security guidelines and accessibility (a11y) standards.
-- Always trace actual call graphs before making modifications.
+### Non-Negotiable Standards (Security & Engineering Rigor)
+Simplicity does not mean sacrificing security or engineering rigor:
+- **Zero Hardcoded Secrets**: Never hardcode credentials, API keys, private tokens, passwords, or webhook secrets. All secrets must be externalized via environment variables (`.env`) or secure secret managers.
+- **Strict Boundary Validation (OWASP)**: Validate and sanitize all user inputs and external data at trust boundaries using schemas or strict type checks to eliminate SQLi, NoSQLi, Command Injection, SSRF, XSS, and Path Traversal vulnerabilities.
+- **Defense in Depth & Least Privilege**: Enforce authorization and authentication checks on all public/internal endpoints. Apply least privilege to data access and service roles.
+- **Safe Error Handling & Data Leak Prevention**: Prevent exposure of internal implementation details, stack traces, database schemas, or PII in client responses, logs, or repository files.
+- **Standard Cryptography & Transport**: Use standard, well-vetted cryptographic routines (e.g., Argon2/bcrypt for passwords, AES-GCM for encryption, SHA-256/SHA-512 for hashing). Prohibit deprecated algorithms (MD5, SHA1) or custom crypto. Always mandate secure transport (HTTPS/TLS) and secure cookie attributes (`HttpOnly`, `Secure`, `SameSite`).
+- **Trace Call Graphs**: Always inspect actual call graphs and blast radius before making modifications.
+

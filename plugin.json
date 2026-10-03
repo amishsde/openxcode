@@ -1,8 +1,8 @@
 {
   "name": "openxcode",
   "displayName": "OpenXCode",
-  "version": "1.0.0",
-  "description": "Pragmatic software engineering guidelines for Antigravity AI. Focuses on standard-library-first implementations, YAGNI, and zero bloat.",
+  "version": "1.1.0",
+  "description": "Pragmatic software engineering & industry-standard security guidelines for Antigravity AI. Focuses on standard-library-first implementations, OWASP security audits, YAGNI, and zero bloat.",
   "author": {
     "name": "Amish",
     "url": "https://github.com/amishsde"
@@ -10,6 +10,9 @@
   "keywords": [
     "openxcode",
     "skills",
+    "security",
+    "security-audit",
+    "owasp",
     "yagni",
     "minimalist",
     "clean-code",
@@ -19,3 +22,4 @@
   "repository": "https://github.com/amishsde/openxcode",
   "license": "MIT"
 }
+

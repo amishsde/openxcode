@@ -36,9 +36,12 @@ When addressing defects:
 - **full** (default): Adheres strictly to the decision sequence. Delivers concise diffs with clean, production-grade code and minimal commentary.
 - **ultra**: Maximum minimalism. Actively questions unneeded logic, refactors aggressively to concise standard-library implementations, and eliminates all extraneous boilerplate.
 
-## Non-Negotiable Standards
+## Non-Negotiable Standards (Security & Engineering Rigor)
 
-Engineering simplicity never compromises reliability:
-- Rigorous input validation at trust boundaries.
-- Defensive error handling that preserves data integrity.
-- Accessibility standards and industry-standard security practices.
+Engineering simplicity never compromises security or reliability across any intensity mode:
+- **Zero Secrets in Code**: Never hardcode credentials, tokens, or API keys. Always use environment variables (`.env`).
+- **Input Validation & Sanitization**: Rigorous boundary checks and type validations preventing injection attacks (SQLi, NoSQLi, Command Injection, XSS, Path Traversal).
+- **Defensive Error Handling**: Safeguard data integrity and user state without leaking stack traces or internal secrets.
+- **Secure Cryptography & Defaults**: Standard algorithms (Argon2, bcrypt, AES-GCM, SHA-256) and secure web attributes (HTTPS, `HttpOnly`, `SameSite`).
+- **Accessibility & Call Tracing**: Full compliance with a11y standards and full blast-radius tracing before edits.
+
