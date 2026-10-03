@@ -81,7 +81,8 @@ git submodule add https://github.com/amishsde/openxcode.git .agents/plugins/open
   Reviews the codebase and highlights areas of over-engineering, redundant dependencies, dead code, and security vulnerabilities.
 
 - `/openxcode-security`  
-  Executes an in-depth, industry-standard Application Security (AppSec) audit aligned with OWASP Top 10 and CWE standards.
+  Executes an enterprise-grade Application Security (AppSec) audit: Source-to-Sink taint tracking, Business Logic & Race Condition analysis, CVSS v3.1 scoring, and self-validating regression test generation.
+
 
 ### Natural Interaction
 
