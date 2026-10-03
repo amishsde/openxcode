@@ -1,11 +1,10 @@
 ---
 name: openxcode
 description: >
-  Enforces pragmatic, minimal, standard-library-first engineering.
-  Questions unnecessary complexity, avoids speculative code (YAGNI),
-  and favors built-in language/platform features over external packages.
-  Supports intensity levels: lite, full (default), ultra.
-argument-hint: "[lite|full|ultra]"
+  Primary prompt engineering & implementation companion. Intercepts and enhances user prompts,
+  thoroughly analyzes project context, rejects bloat/unnecessary dependencies (YAGNI),
+  favors standard-library/platform-native capabilities, and delivers clean, production-grade code.
+argument-hint: "<prompt>"
 license: MIT
 ---
 

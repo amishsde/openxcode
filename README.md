@@ -95,22 +95,17 @@ git submodule update --remote --merge
 
 ## Usage
 
-### Slash Commands
+### The 2 Core Slash Commands
 
-- `/openxcode <prompt>`  
-  Applies standard pragmatic engineering principles to the request.
+1. **`/openxcode <prompt>` (Primary Prompt Companion)**  
+   Jab bhi aap AI ko koi prompt dete hain, is command ko attach karein. AI aapke poore project context ko dekhega, faaltu libraries aur speculative requirements (YAGNI) ko reject karega, aur standard-library/platform-native capabilities use karke clean, production-grade solution dega.
 
-- `/openxcode ultra <prompt>`  
-  Enforces strict minimalism: refuses speculative features, favors single-function solutions, and eliminates boilerplate.
-
-- `/openxcode-audit`  
-  Reviews the codebase and highlights areas of over-engineering, redundant dependencies, dead code, and security vulnerabilities.
-
-- `/openxcode-security`  
-  Executes an enterprise-grade Application Security (AppSec) audit: Source-to-Sink taint tracking, Business Logic & Race Condition analysis, CVSS v3.1 scoring, and self-validating regression test generation.
-
+2. **`/openxcode-security-audit` (Full Codebase Security Audit)**  
+   Poore project ka deep, attacker-perspective security scan karta hai: OWASP Top 10, CWE Top 25, Source-to-Sink taint tracking, Business Logic & Race Condition analysis, CVSS v3.1 scoring, aur concrete standard-library-first fixes generate karta hai.
 
 ### Natural Interaction
+
+
 
 You can also prompt the agent directly:
 - *"Perform a security audit on this repository using @openxcode"*
