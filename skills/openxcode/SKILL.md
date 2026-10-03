@@ -29,7 +29,20 @@ When addressing defects:
 - Always trace execution flows to identify the fundamental root cause rather than patching individual callers.
 - Fix issues at the shared origin so all call sites remain consistent and stable.
 
+## Scalable Architecture & Token-Efficient Modularity
+
+A well-structured codebase scales seamlessly and optimizes AI context efficiency:
+- **Anti-Monolith (Single Responsibility)**: Strictly avoid massive, all-in-one files. Do not mix UI rendering, API fetching, complex business math, and state management in a single file. Keep files lean and focused (ideally < 250–300 lines).
+- **Predictable Separation of Concerns**: Maintain a clean, intuitive directory structure that isolates responsibilities:
+  - `components/`: Modular presentation elements.
+  - `services/` or `api/`: API handlers, database access, and external client requests.
+  - `hooks/` or `state/`: Business logic, reactive state, and lifecycle management.
+  - `types/` or `schemas/`: Type definitions, interfaces, and validation contracts.
+  - `utils/` or `helpers/`: Pure utility functions and shared formatters.
+- **AI Token Optimization**: Modular architecture directly optimizes AI performance—smaller, specialized files mean the AI reads and writes only the relevant context, saving input/output tokens, reducing hallucinations, and producing precise, regression-free diffs.
+
 ## Intensity Modes
+
 
 - **lite**: Prompts consideration of standard libraries, highlights redundant dependencies, and avoids speculative code while keeping normal explanatory prose.
 - **full** (default): Adheres strictly to the decision sequence. Delivers concise diffs with clean, production-grade code and minimal commentary.

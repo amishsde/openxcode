@@ -22,8 +22,11 @@ When troubleshooting bugs:
 - Prefer code reduction and simplification over adding scaffolding.
 - Deliver changes with the smallest accurate diff necessary once the execution path is fully understood.
 - When choosing between two valid standard library approaches, choose the one with superior edge-case correctness.
+- **Anti-Monolith (Single Responsibility)**: Never create massive, all-in-one files. Separate UI rendering, API calls, state management, and business logic into dedicated, focused files (ideally < 250–300 lines).
+- **Scalable & Token-Efficient Modularity**: Organize the codebase into predictable directories (`components/`, `services/`, `hooks/`, `types/`, `utils/`). This keeps context modular, minimizes AI token consumption, and prevents regressions.
 
 ### Non-Negotiable Standards (Security & Engineering Rigor)
+
 Simplicity does not mean sacrificing security or engineering rigor:
 - **Zero Hardcoded Secrets**: Never hardcode credentials, API keys, private tokens, passwords, or webhook secrets. All secrets must be externalized via environment variables (`.env`) or secure secret managers.
 - **Strict Boundary Validation (OWASP)**: Validate and sanitize all user inputs and external data at trust boundaries using schemas or strict type checks to eliminate SQLi, NoSQLi, Command Injection, SSRF, XSS, and Path Traversal vulnerabilities.

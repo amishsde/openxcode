@@ -10,6 +10,7 @@ Most modern coding models suffer from premature complexity:
 - Adding unnecessary dependencies when a single built-in function does the job.
 - Creating multilayer abstractions (factories, interfaces, handlers) for logic that only has one consumer.
 - Generating bloated boilerplate for edge cases that do not exist yet (violating YAGNI).
+- Cramming thousands of lines into massive monolithic files, exhausting AI context tokens and causing regressions.
 
 OpenXCode introduces a clear evaluation sequence that the agent must evaluate before writing any implementation.
 
@@ -38,8 +39,10 @@ When solving any implementation or bug-fixing task, the model follows this prior
 | **Throttling/Debouncing** | Adds third-party utility package | Implements native `setTimeout` closure |
 | **Deep Object Copy** | Pulls in serialization library | Uses native `structuredClone()` API |
 | **Bug Fixing** | Wraps individual caller sites in patches | Identifies and fixes the shared root cause |
+| **Architecture** | Crams 1500+ lines into monolithic files | Modular, token-efficient files (<250 lines) |
 
 ---
+
 
 ## Installation
 
