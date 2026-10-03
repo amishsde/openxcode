@@ -104,9 +104,13 @@ git submodule update --remote --merge
    Jab bhi aap AI ko koi prompt dete hain, is command ko attach karein. AI aapke poore project context ko dekhega, faaltu libraries aur speculative requirements (YAGNI) ko reject karega, aur standard-library/platform-native capabilities use karke clean, production-grade solution dega.
 
 2. **`/openxcode-security-audit` (Full Codebase Security Audit)**  
-   Poore project ka deep, attacker-perspective security scan karta hai: OWASP Top 10, CWE Top 25, Source-to-Sink taint tracking, Business Logic & Race Condition analysis, CVSS v3.1 scoring, aur concrete standard-library-first fixes generate karta hai.
+   Poore project ka deep, attacker-perspective security scan karta hai (OWASP Top 10, CWE Top 25, Taint tracking, Business logic & CVSS v3.1 scoring). Audit ke baad AI aapse interactively poochta hai ki kaun se issues fix karne hain:
+   - `fix all`: Sabhi security vulnerabilities ko automatically fix karta hai.
+   - `fix recommended`: Sirf Critical & High issues ko pehle resolve karta hai.
+   - `fix #1`: Kisi specific vulnerability ko fix karta hai.
 
 ### Natural Interaction
+
 
 
 

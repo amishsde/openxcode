@@ -95,4 +95,17 @@ Organize the findings clearly:
 3. **Recommended Immediate Action Plan**:
    - Prioritized list of actions (Immediate hotfixes vs architectural hardening).
 
+4. **Interactive Remediation Prompt (Mandatory Conclusion)**:
+   Always end the audit report by presenting an interactive prompt asking the user which issues they want to resolve, offering these exact quick-action command options:
+   ```text
+   ---
+   ### What would you like to fix?
+   Reply with one of the following commands:
+   - `fix all` -> Automatically implement standard-library-first fixes for all detected vulnerabilities.
+   - `fix recommended` -> Fix only Critical & High severity vulnerabilities immediately.
+   - `fix #<issue-number>` -> Resolve a specific finding (e.g., `fix #1` or `fix #2`).
+   - `explain #<issue-number>` -> Get a deeper threat model and exploitation walkthrough for a specific issue.
+   ```
+
+
 
