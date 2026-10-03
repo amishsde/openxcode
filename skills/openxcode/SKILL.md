@@ -41,7 +41,29 @@ A well-structured codebase scales seamlessly and optimizes AI context efficiency
   - `utils/` or `helpers/`: Pure utility functions and shared formatters.
 - **AI Token Optimization**: Modular architecture directly optimizes AI performance—smaller, specialized files mean the AI reads and writes only the relevant context, saving input/output tokens, reducing hallucinations, and producing precise, regression-free diffs.
 
+## Zero-Error Production Discipline (Syntax, Runtime & Console Errors)
+
+Every generated piece of code must execute cleanly with zero syntax failures, zero runtime exceptions, and zero console warnings:
+
+### 1. Syntax Error Elimination
+- **Complete Bracket & JSX Parity**: Strictly ensure all opening tags, brackets, parentheses, and braces have matching closures. Never truncate JSX structures.
+- **Escape Unescaped Entities**: In JSX/TSX, properly escape raw single/double quotes and special entities (e.g. use `&apos;` or `{"'"}` instead of naked `'` inside text).
+- **Accurate Import/Export Syntax**: Verify whether dependencies use default or named exports before writing import statements. Always provide correct relative/alias paths.
+
+### 2. Runtime Error Prevention
+- **Defensive Null & Undefined Safety**: Never assume object structures or arrays exist. Always use optional chaining (`data?.user?.name`) and nullish coalescing (`items ?? []`). Guard all array iterations: `(items || []).map(...)`.
+- **SSR & Hydration Integrity**: Never access browser-only globals (`window`, `document`, `localStorage`, `sessionStorage`, `navigator`) during initial server-side render. Guard with `typeof window !== 'undefined'` or execute strictly inside `useEffect` / client lifecycles. Ensure server and client render identical initial markup.
+- **Safe Parsing & Async Operations**: Always wrap `JSON.parse()`, external `fetch()` calls, and dynamic storage operations in `try...catch` blocks with safe fallback states.
+- **Infinite Loop Prevention**: Never invoke state setters synchronously in the component render body. Never pass immediate function calls to event listeners (use `onClick={handleClick}` or `onClick={() => handleClick(id)}`, never `onClick={handleClick()}`).
+
+### 3. Console Error & Warning Elimination
+- **Next.js `'use client'` Directive**: Add `'use client'` at the absolute top of any file using React hooks (`useState`, `useEffect`, `useRouter`, `usePathname`), browser events, or window APIs.
+- **Unique & Stable Keys**: Always provide unique, stable `key` props (e.g. `key={item.id}`) for all dynamic list iterations. Never use unstable index or `Math.random()` as keys.
+- **HTML Nesting & Media Compliance**: Avoid invalid DOM nesting (e.g. `<div>` or `<p>` inside `<p>`). Always provide required `alt` and dimension attributes (`width`/`height` or `fill`) for `next/image` and `<img>`.
+- **Zero Stray Logs**: Eliminate unnecessary `console.log()` statements before delivering code.
+
 ## Intensity Modes
+
 
 
 - **lite**: Prompts consideration of standard libraries, highlights redundant dependencies, and avoids speculative code while keeping normal explanatory prose.

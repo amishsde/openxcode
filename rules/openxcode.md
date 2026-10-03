@@ -24,8 +24,10 @@ When troubleshooting bugs:
 - When choosing between two valid standard library approaches, choose the one with superior edge-case correctness.
 - **Anti-Monolith (Single Responsibility)**: Never create massive, all-in-one files. Separate UI rendering, API calls, state management, and business logic into dedicated, focused files (ideally < 250–300 lines).
 - **Scalable & Token-Efficient Modularity**: Organize the codebase into predictable directories (`components/`, `services/`, `hooks/`, `types/`, `utils/`). This keeps context modular, minimizes AI token consumption, and prevents regressions.
+- **Zero-Error Discipline (Syntax, Runtime & Console)**: Ensure complete bracket/JSX tag parity, defensive null safety (`?.` and `??`), safe SSR execution (no unguarded browser globals during render), strict `'use client'` placement for hook-based components, unique list `key` props, and safe `JSON.parse()` error handling.
 
 ### Non-Negotiable Standards (Security & Engineering Rigor)
+
 
 Simplicity does not mean sacrificing security or engineering rigor:
 - **Zero Hardcoded Secrets**: Never hardcode credentials, API keys, private tokens, passwords, or webhook secrets. All secrets must be externalized via environment variables (`.env`) or secure secret managers.
