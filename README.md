@@ -103,6 +103,8 @@ cd ~/.gemini/config/plugins/openxcode && git pull origin main
    - `fix all`: Automatically resolves all detected vulnerabilities.
    - `fix recommended`: Fixes Critical and High severity risks immediately.
    - `fix #1`: Resolves a specific vulnerability finding.
+   - `explain #1`: Shows in-depth exploit walkthrough and proof for a specific issue.
+
 
 ### Natural Interaction
 
@@ -206,6 +208,8 @@ cd ~/.gemini/config/plugins/openxcode && git pull origin main
    - `fix all`: Sabhi security vulnerabilities ko ek sath theek karega.
    - `fix recommended`: Sirf Critical aur High severity issues ko pehle fix karega.
    - `fix #1`: Kisi specific issue ko fix karega.
+   - `explain #1`: Us specific issue ka detail exploit explanation aur proof dikhayega.
+
 
 ---
 

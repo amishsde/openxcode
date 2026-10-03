@@ -74,38 +74,41 @@ When analyzing code or projects for security vulnerabilities, systematically tra
 
 ---
 
-## Output Report Structure
+## Output Report Structure (Clean, Concise & Non-Messy)
 
-Organize the findings clearly:
+Do NOT output long, overwhelming walls of code or messy paragraphs in the initial audit response. Keep the output clean, scannable, and structured into exactly these 4 compact sections:
 
-1. **Executive Threat Matrix**:
-   - Total vulnerabilities grouped by severity (Critical, High, Medium, Low).
-   - High-level threat exposure summary (e.g., "Critical data leakage risk via IDOR on 2 API routes").
+### 1. Project Tech Stack Detected
+A 2-3 line summary of technologies and architecture detected in the repository (e.g., Framework, Runtime, Database/ORM, Authentication, Payment integrations).
 
-2. **Detailed Vulnerability Findings**:
-   - **[SEVERITY] [CVSS v3.1 SCORE] [OWASP-ID] Title**
-     *(e.g., `[CRITICAL] [CVSS: 9.8] [OWASP A01:2021] IDOR in Order Retrieval Endpoint`)*
-   - **Location**: Clickable link to file and lines: `[filename:L10-L25](file:///path/to/file#L10-L25)`
-   - **Taint Path**: `Source -> Sanitizer (None/Broken) -> Dangerous Sink`
-   - **Attacker Vector (How it gets attacked)**: Step-by-step description of how an attacker crafts the attack payload or manipulates the request.
-   - **Proof / Vulnerable Code**: The vulnerable snippet from the repository.
-   - **Pragmatic Fix**: Concrete code diff implementing the defense using native features or secure conventions.
-   - **Defensive Verification Test**: A minimal unit test or assertion demonstrating how to verify the vulnerability is closed.
+### 2. Threat Matrix (Scannable Table)
+Present all detected vulnerabilities in a clean, compact markdown table:
 
-3. **Recommended Immediate Action Plan**:
-   - Prioritized list of actions (Immediate hotfixes vs architectural hardening).
+| # | Severity | CVSS | Vulnerability / Issue | Location | Impact Summary |
+| :-: | :--- | :-: | :--- | :--- | :--- |
+| 1 | `CRITICAL` | 9.8 | Hardcoded Database Secret | [`src/db.ts:L14`](file:///path/to/src/db.ts#L14) | Credentials exposed in repository |
+| 2 | `HIGH` | 8.5 | Broken Access Control (IDOR) | [`api/orders.ts:L42`](file:///path/to/api/orders.ts#L42) | Unauthorized users can access other orders |
+| 3 | `HIGH` | 7.5 | Missing Endpoint Rate Limiting | [`api/auth/otp.ts:L18`](file:///path/to/api/auth/otp.ts#L18) | Susceptible to OTP brute-force abuse |
+| 4 | `MEDIUM` | 5.3 | Missing Cookie Security Flags | [`lib/session.ts:L29`](file:///path/to/lib/session.ts#L29) | Session cookie missing `HttpOnly` flag |
 
-4. **Interactive Remediation Prompt (Mandatory Conclusion)**:
-   Always end the audit report by presenting an interactive prompt asking the user which issues they want to resolve, offering these exact quick-action command options:
-   ```text
-   ---
-   ### What would you like to fix?
-   Reply with one of the following commands:
-   - `fix all` -> Automatically implement standard-library-first fixes for all detected vulnerabilities.
-   - `fix recommended` -> Fix only Critical & High severity vulnerabilities immediately.
-   - `fix #<issue-number>` -> Resolve a specific finding (e.g., `fix #1` or `fix #2`).
-   - `explain #<issue-number>` -> Get a deeper threat model and exploitation walkthrough for a specific issue.
-   ```
+*(Keep each table cell concise. Do NOT dump long diffs or paragraphs here. Detailed code walkthroughs are provided on-demand via `explain #<id>` or resolved via `fix`).*
+
+### 3. Recommended Immediate Action Plan
+A prioritized, bulleted 2–4 point action plan focusing on immediate threat mitigation.
+
+### 4. Interactive Remediation Prompt (Mandatory Conclusion)
+Always conclude the response with this exact prompt:
+
+```text
+---
+### What would you like to fix?
+Reply with one of the following commands:
+- `fix all` -> Automatically implement standard-library-first fixes for all detected vulnerabilities.
+- `fix recommended` -> Fix only Critical & High severity vulnerabilities immediately.
+- `fix #<issue-number>` -> Resolve a specific finding (e.g., `fix #1` or `fix #2`).
+- `explain #<issue-number>` -> View full exploitation walkthrough and proof for a specific issue.
+```
+
 
 
 
