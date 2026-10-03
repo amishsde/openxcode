@@ -67,6 +67,32 @@ git submodule add https://github.com/amishsde/openxcode.git .agents/plugins/open
 
 ---
 
+## Updating
+
+If you previously installed OpenXCode and want to pull the latest rules, skills, and security features from upstream:
+
+### Global Installation
+
+**Windows (PowerShell):**
+```powershell
+cd "$HOME\.gemini\config\plugins\openxcode"; git pull origin main
+```
+
+**macOS / Linux:**
+```bash
+cd ~/.gemini/config/plugins/openxcode && git pull origin main
+```
+
+### Project-Specific Submodule
+
+Run from your project root:
+```bash
+git submodule update --remote --merge
+```
+
+---
+
+
 ## Usage
 
 ### Slash Commands
