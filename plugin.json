@@ -1,0 +1,21 @@
+{
+  "name": "openxcode",
+  "displayName": "OpenXCode",
+  "version": "1.0.0",
+  "description": "Pragmatic software engineering guidelines for Antigravity AI. Focuses on standard-library-first implementations, YAGNI, and zero bloat.",
+  "author": {
+    "name": "Amish",
+    "url": "https://github.com/amishsde"
+  },
+  "keywords": [
+    "openxcode",
+    "skills",
+    "yagni",
+    "minimalist",
+    "clean-code",
+    "antigravity"
+  ],
+  "homepage": "https://github.com/amishsde/openxcode",
+  "repository": "https://github.com/amishsde/openxcode",
+  "license": "MIT"
+}
