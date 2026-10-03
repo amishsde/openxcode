@@ -28,10 +28,13 @@ When assessing security, adopt an **Adversarial Mindset**: analyze the code as a
 - **Secret & Credential Leaks**: Scan for hardcoded API keys, JWT secrets, passwords, private keys, database URLs, and `.env` leaks in repository/client bundles.
 - **Business Logic Flaws & Race Conditions**: Concurrency flaws (TOCTOU), parameter tampering (negative prices/quantities), and workflow/state machine bypasses.
 - **Broken Access Control & Auth**: Missing middleware guards, unauthenticated API endpoints, IDOR (Insecure Direct Object Reference), or client-only security enforcement.
+- **Native Anti-Spam (Zero-Bloat)**: Verify forms utilize lightweight Honeypots and timing checks against bots instead of heavy third-party CAPTCHAs.
+- **Reconnaissance & Info Disclosure**: Audit `robots.txt` / `sitemap.xml` for leaked admin/staging routes, and verify clean custom 404/500 error pages.
 - **Cross-Site Scripting (XSS) & SSRF**: Unescaped DOM rendering (`dangerouslySetInnerHTML`, `innerHTML`, `v-html`) and unvalidated server-side HTTP request destinations.
 - **Rate Limiting & Resource Exhaustion (DoS)**: Missing rate limits on OTP/auth routes, ReDoS, and unbounded payload/memory risks.
-- **Sensitive Data Exposure**: Secrets or PII returned in API responses or printed in production logs / stack traces.
+- **Cookie Security & Privacy**: Audit cookie flags (`HttpOnly`, `Secure`, `SameSite`) and ensure tracking scripts wait for cookie consent.
 - **Insecure Dependencies & Scripts**: Vulnerable/outdated third-party packages, untrusted external scripts, or compromised package scripts.
+
 
 
 ### 2. Architecture & Simplification

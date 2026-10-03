@@ -49,9 +49,11 @@ When analyzing code or projects for security vulnerabilities, systematically tra
 ### 4. Broken Access Control & Session Management (OWASP A01:2021)
 - **Authorization Enforcement (IDOR)**: Verify every backend route/mutation verifies caller permissions and tenant boundaries (prevent IDOR). Never rely solely on client-side route guards.
 - **Cookie Security**: Ensure session cookies include `HttpOnly`, `Secure`, and `SameSite=Lax|Strict` flags.
+- **Cookie Consent & Privacy Compliance**: If third-party tracking or analytics cookies (e.g. Google Analytics, Meta Pixel) are used, verify they do not load before explicit user consent via a consent mechanism. (Essential auth cookies remain exempt).
 - **Token Handling**: Check JWT signature verification, expiration checks, and secure storage (prohibit raw `localStorage` for sensitive tokens if vulnerable to XSS).
 
-### 5. API Abuse, Rate Limiting & Resource Exhaustion (OWASP A04:2021 / CWE-400)
+### 5. API Abuse, Anti-Spam & Resource Exhaustion (OWASP A04:2021 / CWE-400)
+- **Native Form Spam & Bot Abuse (Zero-Bloat)**: Audit public forms (contact, registration, newsletter) for native, lightweight anti-spam protections such as **Honeypot fields** (hidden fields traps for bots) and form submission timing checks (rejecting bot submissions completed in < 1 second), avoiding heavy third-party CAPTCHA scripts.
 - **Missing Rate Limits**: Check sensitive endpoints (login, OTP generation, password reset, SMS/email notifications, heavy search queries) for brute-force and bill-bombing exposure.
 - **Regular Expression Denial of Service (ReDoS)**: Identify evil regexes with polynomial or exponential backtracking on user-controlled inputs.
 - **Unbounded Payloads & Pagination**: Validate upload file-size limits, JSON body size limits, and enforce database query pagination limits to prevent memory exhaustion.
@@ -60,7 +62,9 @@ When analyzing code or projects for security vulnerabilities, systematically tra
 - **DOM Injection**: Check for unsafe HTML injections (`dangerouslySetInnerHTML`, unescaped template strings).
 - **SSRF Validation**: Ensure any server-side fetch to user-provided URLs validates against a strict allowlist and blocks internal/private IP ranges (`127.0.0.1`, `localhost`, `169.254.169.254`, `10.0.0.0/8`, `192.168.0.0/16`).
 
-### 7. Security Misconfiguration & Error Leakage (OWASP A05:2021)
+### 7. Security Misconfiguration, Info Leakage & Reconnaissance (OWASP A05:2021)
+- **Robots.txt & Sitemap Reconnaissance (CWE-200)**: Audit `robots.txt` and `sitemap.xml` to ensure developers did not expose internal routes, staging endpoints, or admin paths (e.g. `Disallow: /admin`, `Disallow: /api/internal`) that hand attackers a map of private attack surfaces.
+- **Custom Error & 404/500 Pages**: Verify the application serves clean, custom 404 and 500 error pages that suppress server technology banners, framework versions, and internal file paths.
 - **Stack Trace Exposure**: Ensure uncaught exceptions do not leak stack traces, database schema, or internal paths in production HTTP responses.
 - **CORS & Headers**: Check for wildcards (`Access-Control-Allow-Origin: *`) with credentials, and verify standard security headers (CSP, HSTS, X-Content-Type-Options).
 
