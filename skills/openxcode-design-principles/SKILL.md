@@ -1,308 +1,141 @@
 ---
 name: openxcode-design-principles
 description: >
-  Enforces strict, professional UI/UX design standards for AI-generated code.
-  Guarantees mobile-first responsiveness (320px to 4K), 4px spacing scale,
-  fluid typography, Material Design 3 patterns, zero emojis, and WCAG AA accessibility.
+  Senior UI/UX design system enforcing razor-sharp alignment, spatial rhythm,
+  fluid typography, consistent padding/margins, and structural device adaptation
+  across mobile, tablet, laptop, and desktop without restricting creative design choices.
 license: MIT
 ---
 
-# OpenXCode UI Design Principles
+# OpenXCode Universal UI/UX Design Principles
 
-Follow every rule below whenever you generate UI code (web, hybrid or app). If a rule conflicts with a request, follow the request but keep all other rules intact. Before delivering, run the checklist in section 14.
-
----
-
-## 1. Core Philosophy
-
-- Build mobile-first, then scale up to tablet, laptop and desktop. Never build desktop-only and shrink it.
-- The UI must look professional, calm and consistent: same spacing, same sizes and same behaviour for the same kind of element everywhere.
-- Look and feel on mobile must match a modern native Android app (Material Design 3).
-- No emojis anywhere. Use icons only.
-- No decorative or attention-grabbing animation. Only functional, short, subtle motion.
-- Never hard-code random values. Use the tokens and scales defined in this document or import from [references/tokens.css](references/tokens.css).
-
-> [!TIP]
-> **Anthropic Progressive Disclosure Reference**: For full CSS design tokens, standard reset, and variables, refer directly to [`references/tokens.css`](references/tokens.css).
+You act as an elite Multi-Platform UI/UX Systems Architect. Your mandate is to guarantee **flawless visual structure, alignment, spatial rhythm, typography, padding, and margins** across every screen size (**Mobile, Tablet, Laptop, Desktop / Ultrawide**).
 
 ---
 
-## 2. Device Coverage and Breakpoints
+## 1. Core Mandate: Style Freedom, Structural Discipline
 
-The layout must work without breaking on every common screen width.
-
-| Class | Width range | Examples that must be checked |
-|---|---|---|
-| Small mobile | 320 - 359 px | 320, 340, 360 |
-| Mobile | 360 - 599 px | 360, 375, 390, 393, 412, 414, 430, 480 |
-| Tablet portrait | 600 - 839 px | 600, 768, 810, 820 |
-| Tablet landscape / small laptop | 840 - 1279 px | 912, 1024, 1180 |
-| Laptop | 1280 - 1599 px | 1280, 1366, 1440, 1536 |
-| Desktop | 1600 - 2559 px | 1680, 1920, 2048 |
-| Large desktop / 2K / 4K scaled | 2560 px and above | 2560, 3840 |
-
-Breakpoints (min-width, mobile-first):
-- Defined as `--bp-sm: 360px`, `--bp-md: 600px`, `--bp-lg: 840px`, `--bp-xl: 1280px`, `--bp-2xl: 1600px` in [`references/tokens.css`](references/tokens.css).
-
-Rules:
-- Never allow horizontal page scroll at any width from 320 px upward.
-- Use `min-height: 100dvh` (not `100vh`) for full-screen layouts.
-- Respect safe areas on notched phones: `padding-bottom: env(safe-area-inset-bottom)` for bottom bars.
-- Use fluid units (`rem`, `%`, `fr`, `clamp()`) for sizing. Use `px` only for borders, shadows and fixed touch targets.
-- Test both portrait and landscape on mobile and tablet.
+> [!IMPORTANT]
+> **Never impose a rigid, one-size-fits-all visual theme on the user.**
+> Do NOT restrict the user's creative vision, aesthetic choices, or branding. Whether the design is Minimalist, Modern SaaS, iOS-inspired, Corporate Enterprise, Dark Mode Cyberpunk, or Editorial:
+> - **Respect User Choices**: Adapt whatever layout, components, and aesthetic the user requests.
+> - **Enforce Structural Hygiene**: Ensure buttons, inputs, icons, labels, and cards are never cluttered, misaligned, floating awkwardly, or broken across screen sizes.
+> - **Adapt Structures Per Device**: Never force a single rigid layout across all screens. Adapt the structure so it feels purpose-built for each device.
 
 ---
 
-## 3. Layout and Grid
+## 2. The 5 Pillars of Structural UI Hygiene
 
-| Device | Columns | Page gutter (side padding) | Column gap |
-|---|---|---|---|
-| Mobile (< 600) | 4 | 16 px | 16 px |
-| Tablet (600 - 839) | 8 | 24 px | 24 px |
-| Laptop (840 - 1599) | 12 | 32 px | 24 px |
-| Desktop (>= 1600) | 12 | 40 px | 32 px |
+Whatever UI is being built, it must satisfy these 5 foundational structural laws:
 
-- Content container: `max-width: 1280px` for standard pages, `1440px` for dashboards. Center it with `margin-inline: auto`. On very large screens the content must not stretch edge to edge.
-- Reading text width: max 65 - 75 characters per line (`max-width: 68ch`).
-- Use CSS Grid for page structure and Flexbox for component rows. Do not position with fixed pixel offsets.
-- Navigation pattern per device:
-  - Mobile: top app bar + bottom navigation bar (max 5 items).
-  - Tablet: navigation rail on the left (80 px wide).
-  - Laptop / desktop: persistent sidebar (240 - 280 px) or top navbar.
-- Cards grid: 1 column on mobile, 2 on tablet, 3 - 4 on laptop/desktop using `repeat(auto-fill, minmax(280px, 1fr))`.
+### A. Flawless Geometric Alignment
+- **Shared Column Axes**: Elements in a vertical column must share a strict alignment edge (usually left edge). Never allow ragged, randomly indented inputs, buttons, or headers.
+- **Vertical Centering in Rows**: Elements sharing a horizontal row (e.g. icon + text, input + button, avatar + name + badge) must strictly align along their vertical center (`align-items: center`) or baseline.
+- **Form Cohesion**: Form labels, input boxes, helper text, and validation error messages must be vertically stacked with matching left edges.
+- **Equal Row Heights**: When inputs, selects, and action buttons are placed side-by-side, their heights must be identical (e.g. all 48 px on mobile, all 40 px on desktop).
 
----
+### B. Mathematical Spacing Scale (4px Rhythm) & Padding Rules
+- **4px / 8px Spatial Rhythm**: All margins, paddings, and layout gaps must use strict 4 px increments:
+  `4px`, `8px`, `12px`, `16px`, `24px`, `32px`, `48px`, `64px`. Never use arbitrary values (`13px`, `19px`).
+- **Container vs Inner Child Hierarchy**: The inner padding of a card or container must always be **greater than or equal to** the gap between the elements inside it.
+  *(Example: If gap between inputs is 16 px, card padding must be at least 16 px, preferably 20–24 px).*
+- **Logical Gap Over Arbitrary Margin**: Use flexbox and CSS grid `gap` properties instead of scattered, manual margins on individual child elements.
+- **Page Gutters**:
+  - Mobile: `16px` side margins.
+  - Tablet: `24px` side margins.
+  - Laptop: `32px` side margins.
+  - Desktop: `40px`–`48px` side margins.
 
-## 4. Spacing System
+### C. Fluid Typography & Line-Length Containment
+- **Fluid Scale**: Headings and body copy scale smoothly with viewport width using fluid `clamp()` or standard typographic scales: Display (`32–48px`), H1 (`24–32px`), H2 (`20–24px`), H3 (`18–20px`), Body (`14–16px`), Caption (`12–13px`).
+- **Line-Length Measure**: Long paragraphs and readable text blocks must never stretch across wide screens. Strictly enforce `max-width: 65ch`–`75ch` (`max-width: 68ch`) to prevent eye fatigue.
+- **Hierarchy & Proportions**:
+  - Title/Heading: Clear visual weight (500–600 weight).
+  - Body text: 14 px to 16 px (never below 14 px for primary reading).
+  - Caption/Helper: 12 px to 13 px.
+  - Form Inputs: Minimum 16 px on mobile to prevent automatic browser zoom on iOS Safari.
+- **Text Wrapping & Overflow**: Long text strings must gracefully wrap (`overflow-wrap: break-word`) or truncate with clean ellipsis. Content must never cause horizontal scrolling.
 
-Use a 4 px base unit. Only 4px increments are allowed (`--space-1` to `--space-8` from [`references/tokens.css`](references/tokens.css)):
-`4px` (1), `8px` (2), `12px` (3), `16px` (4), `24px` (5), `32px` (6), `48px` (7), `64px` (8).
+### D. Anti-Clutter & Breathing Room
+- **Never Crowd Interactive Controls**: Adjacent clickable/tappable elements must have at least `8px` to `12px` separation.
+- **Whitespace as Structure**: Avoid boxing every single item in heavy borders or background tiles. Use consistent whitespace to create visual grouping.
+- **No Overlapping or Floating Artifacts**: Modals, dropdowns, sticky action bars, and floating controls must have explicit z-indices (`z-index: 10` to `40`) and backdrop boundaries so they never overlap page content awkwardly.
 
-Usage guide:
-- Icon to label gap: 8 px.
-- Between related items (label and input, title and subtitle): 4 - 8 px.
-- Between form fields: 16 px.
-- Card inner padding: 16 px mobile, 20 - 24 px tablet and above.
-- Between sections: 32 px mobile, 48 px tablet, 64 px laptop and above.
-- Page top and bottom padding: 16 - 24 px mobile, 32 - 48 px desktop.
-- Inner spacing must always be smaller than or equal to the outer spacing of its container.
-- Same component = same padding on every screen of the same class. No one-off values.
-
----
-
-## 5. Typography
-
-Font:
-- Primary: `Roboto` (native Android feel). Fallback: `Inter, system-ui, -apple-system, "Segoe UI", sans-serif`.
-- Use one family for the whole product. Monospace only for code.
-
-Type scale (fluid clamp tokens defined in [`references/tokens.css`](references/tokens.css)):
-
-| Role | Mobile | Desktop | Weight | Line height |
-|---|---|---|---|---|
-| Display / hero | 28 px | 40 - 48 px | 600 | 1.2 |
-| Heading 1 | 24 px | 32 px | 600 | 1.25 |
-| Heading 2 | 20 px | 24 px | 600 | 1.3 |
-| Heading 3 | 18 px | 20 px | 500 | 1.35 |
-| Body large | 16 px | 18 px | 400 | 1.5 |
-| Body (default) | 14 - 16 px | 16 px | 400 | 1.5 |
-| Label / button | 14 px | 14 - 15 px | 500 | 1.25 |
-| Caption / helper | 12 px | 13 px | 400 | 1.4 |
-
-Rules:
-- Minimum text size is 12 px. Body text never below 14 px.
-- Allowed weights: 400, 500, 600. Use 700 only for rare emphasis. Never use 300 or lighter for body text.
-- Input text must be at least 16 px on mobile to avoid forced zoom.
-- No ALL CAPS paragraphs. Uppercase is allowed only for very short labels with letter-spacing 0.5 px.
-- Do not mix more than 3 font sizes inside a single card or component.
-- Long text must wrap or truncate with ellipsis. Never overflow its container.
+### E. Interactive Element Precision (Buttons, Inputs, Icons)
+- **Zero Emojis**: Emojis in production UI look unprofessional and render inconsistently across operating systems. Use vector SVG icons only (e.g. Lucide, Material Symbols).
+- **Touch Target Minimum**: Every interactive element on touchscreens (buttons, links, icons, chips) must have at least a `44x44px` to `48x48px` physical touch area.
+- **Dropdown / Select Anatomy**:
+  - Custom chevron-down icon placed vertically centered, **16 px from the right edge**.
+  - Right padding strictly reserved (`padding-right: 48px`) so text never runs under the chevron.
+  - `appearance: none;` applied to hide native operating system arrows.
 
 ---
 
-## 6. Color System
+## 3. Structural Device Adaptation Matrix
 
-Define every color as a token. Never write raw hex inside components. Use `--color-primary`, `--color-surface`, `--color-outline`, and `--color-text-*` defined in [`references/tokens.css`](references/tokens.css).
+Never force a desktop layout onto a mobile phone, and never stretch a mobile phone layout onto a 34" monitor. Adapt the structure intelligently:
 
-Rules:
-- One primary color plus neutrals. Semantic colors (success, warning, error) only for status.
-- Text contrast must meet WCAG AA: 4.5:1 for normal text, 3:1 for large text and UI borders.
-- Text hierarchy: primary text for titles, secondary text for supporting info, disabled for inactive.
-- Never use pure black (`#000`) text on pure white. Use semantic text tokens.
-- Never communicate state with color alone. Pair it with an icon or text.
-- Provide a dark theme with `prefers-color-scheme: dark` using identical token names. Dark surfaces use dark grey (`#121212` - `#1E1E1E`), not pure black.
-- Gradients are not allowed unless the user asks for them.
-
----
-
-## 7. Buttons
-
-| Property | Mobile | Tablet | Laptop / Desktop |
-|---|---|---|---|
-| Height | 48 px | 44 - 48 px | 40 px |
-| Min touch target | 48 x 48 px | 44 x 44 px | 36 x 36 px |
-| Horizontal padding | 24 px | 24 px | 20 - 24 px |
-| Border radius | 24 px (pill) or 12 px | same | 8 - 12 px |
-| Label | 14 px, weight 500 | same | 14 px, weight 500 |
-
-- Keep one radius style across the whole product (all pill or all rounded-rectangle).
-- Variants: Filled (primary action, one per screen section), Tonal (secondary), Outlined (tertiary), Text (low emphasis).
-- On mobile, primary buttons in forms and dialogs are full width. On tablet and above they are auto width, aligned right in dialogs and forms.
-- Button label color must contrast with its background (see section 6). Label on filled button uses `--color-on-primary`.
-- Icon inside button: 20 px, gap 8 px from label, vertically centered.
-- States are mandatory: default, hover (desktop only, +8% overlay), focus-visible (2 px outline, 2 px offset), pressed (+12% overlay), disabled (38% opacity, no pointer), loading (spinner replaces icon, width stays the same).
-- Buttons in a row: gap 8 - 12 px. Equal heights. Primary on the right (desktop) or on top (mobile stack).
-- Never shrink a button below its label width. Use `white-space: nowrap`.
-
----
-
-## 8. Form Fields, Select and Dropdown
-
-Text fields:
-- Height 48 px (mobile) / 40 - 44 px (desktop), or 56 px for Material filled/outlined style on mobile.
-- Horizontal padding 16 px. Radius 8 - 12 px. Border 1 px `--color-outline`, 2 px `--color-primary` on focus.
-- Label above the field (12 - 14 px, weight 500) with 4 - 8 px gap. Helper or error text below with 4 px gap, 12 px size.
-- Placeholder uses `--color-text-secondary` and must never replace a label.
-
-Select / dropdown (strict):
-- Hide the native arrow with `appearance: none`.
-- Draw a chevron-down icon inside the box, vertically centered, with **16 px gap from the right edge** (12 px minimum on very small fields).
-- Reserve space for the icon with `padding-right: 48px` so text never runs under the icon.
-- The icon must not capture clicks (`pointer-events: none`). Clicking anywhere on the box opens the list.
-- The icon rotates 180 degrees when the list is open (150 ms). No other motion.
-- The dropdown list: same width as the field, radius 8 - 12 px, max-height 280 px with scroll, item height 48 px (mobile) / 40 px (desktop), item padding 16 px, selected item uses `--color-primary-container`.
-- On mobile, prefer a bottom sheet for long lists.
-
-```css
-.select-wrap { position: relative; }
-
-.select {
-  width: 100%;
-  height: 48px;
-  padding: 0 48px 0 16px;      /* right padding leaves room for icon */
-  border: 1px solid var(--color-outline);
-  border-radius: 12px;
-  background: var(--color-surface);
-  color: var(--color-text-primary);
-  font: 400 1rem/1.25 inherit;
-  appearance: none;
-  -webkit-appearance: none;
-  text-overflow: ellipsis;
-}
-
-.select-wrap .select-icon {
-  position: absolute;
-  right: 16px;                 /* proper gap from right edge */
-  top: 50%;
-  width: 20px;
-  height: 20px;
-  transform: translateY(-50%);
-  pointer-events: none;
-  color: var(--color-text-secondary);
-}
+```text
++-------------------+---------------------------------------------------------------------------------+
+| Device Tier       | Structural Adaptation Rules                                                     |
++-------------------+---------------------------------------------------------------------------------+
+| Mobile            | • Single-column linear flow for forms and cards.                               |
+| (320px – 599px)   | • Primary CTAs placed within natural thumb reach (bottom-anchored sticky bars).|
+|                   | • Modals and complex menus adapt to Bottom Sheets with drag handles.           |
+|                   | • Viewports utilize 100dvh to handle dynamic address bars and virtual keyboards.|
+|                   | • Zero horizontal page scroll under all conditions.                            |
++-------------------+---------------------------------------------------------------------------------+
+| Tablet            | • Balanced 2-column or 3-column auto-fill card grids.                          |
+| (600px – 1023px)  | • Navigation adapts to compact Navigation Rail (72–80px) or horizontal tabs.   |
+|                   | • Master-Detail dual panes where list and detail can co-exist.                  |
+|                   | • Dialogs adapt to centered modals (max 560px) or anchored popovers.           |
+|                   | • Fluid rotation between Portrait (single pane) and Landscape (split view).     |
++-------------------+---------------------------------------------------------------------------------+
+| Laptop            | • Higher information density: compact table rows (40–48px), multi-column forms.|
+| (1024px – 1599px) | • Persistent collapsible sidebar (240–280px expanded, 64–72px mini-rail).     |
+|                   | • Keyboard-first navigation: visible focus rings (:focus-visible), Cmd+K search.|
+|                   | • Pointer hover states (+8% tint) with 300ms delayed tooltips.                 |
+|                   | • Resilient to half-screen window snapping (~640–720px split view).             |
++-------------------+---------------------------------------------------------------------------------+
+| Desktop / 4K      | • Content container strictly bounded (max-width: 1280px–1600px, centered).     |
+| (1600px – 3840px+)| • Reading lines capped at 68ch to prevent severe neck strain ("Tennis Match"). |
+|                   | • Multi-column canvas architecture (Sidebar + Main Canvas + Inspector Drawer).  |
+|                   | • Virtualized data grids for dense enterprise datasets.                         |
+|                   | • Crisp vector SVG assets and sub-pixel border rendering for 4K scaling.        |
++-------------------+---------------------------------------------------------------------------------+
 ```
 
-Other form rules:
-- Same height for every input, select and button placed on the same row.
-- Error state: red border, error icon inside the field with the same 16 px right gap, message below.
-- Checkbox and radio: 20 px visual size inside a 48 px touch area (24 px on desktop).
-- Switches follow the Material 3 size (52 x 32 px).
+---
+
+## 4. Specialized References (Progressive Disclosure)
+
+For deep ergonomic and implementation specifics for a target form factor, consult the dedicated reference files:
+
+- **Mobile Ergonomics**: [`references/mobile-experience.md`](references/mobile-experience.md)
+  *(Thumb-zone reachability, touch targets, virtual keyboards, bottom sheets, safe areas)*
+- **Tablet Architecture**: [`references/tablet-experience.md`](references/tablet-experience.md)
+  *(Master-Detail dual pane, Navigation Rail, orientation adaptation, hybrid stylus/touch)*
+- **Laptop Workflows**: [`references/laptop-experience.md`](references/laptop-experience.md)
+  *(Collapsible sidebars, dense data tables, keyboard shortcuts, hover states, window snapping)*
+- **Desktop & 4K Ultrawide**: [`references/desktop-experience.md`](references/desktop-experience.md)
+  *(Container max-widths, neck-strain prevention, 3-column canvas, inspector panels, virtual grids)*
 
 ---
 
-## 9. Icons (No Emojis)
+## 5. Pre-Delivery Structural Quality Checklist
 
-- **Emojis are forbidden** in UI, labels, buttons, placeholders, toasts, alt text, console logs, comments and sample data.
-- Use one icon set only: Material Symbols (Rounded or Outlined) or Lucide. Never mix sets.
-- Sizes: 20 px inside buttons and fields, 24 px default, 32 px for empty states, 48 px maximum for illustrations.
-- Same stroke weight and style for every icon.
-- Icon color follows text color tokens. Active nav icon uses the primary color.
-- Icon-only buttons must have `aria-label` and a 48 x 48 px touch target (36 px on desktop).
-- Use SVG (inline or component). Do not use image files for icons.
+Before delivering any UI code, verify this checklist:
 
----
-
-## 10. Native Android Look and Feel (Mobile)
-
-- Follow Material Design 3 patterns.
-- Top app bar: 56 px height, title 20 px weight 500, left-aligned, back arrow on the left, max 2 action icons on the right.
-- Bottom navigation: 80 px height (including label), 3 - 5 items, icon 24 px + label 12 px, active indicator pill 64 x 32 px in `--color-primary-container`.
-- FAB: 56 px, 16 px from the right and bottom edges (above bottom nav).
-- Cards: radius 12 - 16 px, 16 px padding, tonal surface or very light elevation. No heavy shadows.
-- Lists: 56 - 72 px row height, 16 px side padding, 1 px divider only when needed.
-- Dialogs: radius 28 px, 24 px padding, max-width 560 px, actions aligned right.
-- Bottom sheets for pickers and menus on mobile. Snackbar (not alert) for feedback: bottom, 48 px high, auto-hide in 4 s.
-- Touch feedback: subtle ripple or opacity overlay on press. No hover-only interactions on touch devices.
-- Scrolling is native-like: `-webkit-overflow-scrolling: touch`, `overscroll-behavior: contain` inside sheets and dialogs.
-- Use `-webkit-tap-highlight-color: transparent` and provide custom pressed feedback.
-
----
-
-## 11. Animation and Motion
-
-Principle: motion explains a change. If it does not help the user understand something, remove it.
-
-Allowed (only when needed):
-- Page / screen transition: fade or short slide, 200 - 300 ms.
-- Dialog, bottom sheet and menu open/close: fade + small translate or scale from 0.95, 150 - 250 ms.
-- Dropdown chevron rotation: 150 ms.
-- Button, chip and list-item state change (hover, press, focus): 100 - 150 ms color or opacity.
-- Expand / collapse of accordions: 200 ms height or opacity.
-- Loading: one skeleton shimmer (slow, subtle) or one small spinner. Only while loading, never as decoration.
-- Toast / snackbar: fade and slide in, 200 ms.
-
-Timing and easing:
-- Standard durations and cubic-bezier curves (`--motion-fast`, `--motion-base`, `--motion-slow`, `--ease-standard`, `--ease-exit`, and reduced-motion reset) are declared in [`references/tokens.css`](references/tokens.css).
-
-Forbidden:
-- Infinite or looping animations (except the loading spinner / skeleton while data loads).
-- Bounce, shake, wobble, pulse, glow, flashing, floating, rotating logos or banners.
-- Auto-playing carousels, marquees, typewriter effects and parallax.
-- Animations longer than 400 ms. Scroll-jacking. Animations that delay the user from acting.
-- Animating layout properties (`width`, `height`, `top`, `left`, `margin`) when `transform` and `opacity` can do the job.
-- Always respect `@media (prefers-reduced-motion: reduce)`.
-
----
-
-## 12. Alignment and Structure
-
-- Align everything to the grid. Elements in a column share the same left edge. Elements in a row share the same vertical center or baseline.
-- Page structure order: app bar / header, page title, content sections, footer. Same order on every page.
-- Each section has one clear heading and consistent spacing from the previous section (see section 4).
-- Use consistent component heights in a row (buttons, inputs, selects, chips = same height).
-- Text alignment: left for text (right for RTL languages), numbers in tables right-aligned, headings never centered inside long forms.
-- Center alignment is allowed only for short content: empty states, hero blocks, dialogs titles on mobile.
-- Tables on mobile: convert to cards or allow controlled horizontal scroll inside the table container only (never the page).
-- Images: always set `aspect-ratio`, `object-fit: cover`, and `max-width: 100%`. No layout shift on load.
-- Use `gap` for spacing between siblings instead of margins on each child.
-- Z-index scale: content 0, sticky 10, dropdown 20, modal 30, toast 40. No random large values.
-
----
-
-## 13. States, Accessibility and Quality
-
-- Every screen must define: loading, empty, error and success states. Empty states use an icon, one line of text and one action.
-- Visible `:focus-visible` outline on every interactive element. Keyboard navigation must work on desktop.
-- Use semantic HTML (`button`, `nav`, `main`, `label`, `table`). Do not make a `div` act like a button.
-- Disabled elements must look disabled and not respond to clicks.
-- Support text zoom up to 200% without breaking layout.
-- Do not use `!important` except for the reduced-motion rule.
-- Keep CSS organized with tokens at `:root`, then base styles, then components. Do not repeat the same values in many places.
-
----
-
-## 14. Pre-Delivery Checklist
-
-Confirm every item before delivering code:
-
-- [ ] Works at 320, 360, 390, 412, 768, 1024, 1366, 1440, 1920 and 2560 px with no horizontal scroll and no overlapping.
-- [ ] Spacing uses only the 4 px scale. Page gutters match section 3.
-- [ ] Font family, sizes and weights follow the type scale. Body text is at least 14 px.
-- [ ] All colors come from tokens and pass contrast checks. Dark theme works.
-- [ ] Buttons meet height and touch-target sizes with all states defined.
-- [ ] Every select and dropdown has a chevron icon with 16 px right gap and 48 px right padding.
-- [ ] Inputs, selects and buttons in the same row have equal heights.
-- [ ] Only one icon set is used. Zero emojis anywhere.
-- [ ] Mobile has native Android feel (app bar, bottom nav, bottom sheets, ripple/press feedback).
-- [ ] Animations are only the allowed ones, 120 - 300 ms, no infinite or decorative motion, reduced-motion supported.
-- [ ] Loading, empty and error states exist for every data screen.
-- [ ] Alignment, grid and section order are consistent on every page.
+- [ ] **Alignment**: All elements in columns share identical left edges; all elements in rows share vertical centers.
+- [ ] **Spacing & Margins**: All spacing strictly adheres to the 4px scale (`4`, `8`, `12`, `16`, `24`, `32`, `48`, `64px`). No random values.
+- [ ] **Padding**: Container padding is larger than or equal to inner element gaps.
+- [ ] **Cross-Device Adaptation**:
+  - Mobile: Single-column, thumb-accessible, `100dvh`, no horizontal scroll.
+  - Tablet: Multi-column, no awkward stretched lines, balanced whitespace.
+  - Laptop: Dense, keyboard-accessible, sidebar collapses cleanly.
+  - Desktop: Bounded max-width (`1280px`–`1600px`, centered), text lines <= `68ch`.
+- [ ] **Touch & Click Targets**: Buttons and interactive controls >= 44–48 px on touch devices; adjacent buttons separated by >= 8 px.
+- [ ] **Form Fields**: Same height for inputs and buttons in the same row; inputs >= 16 px on mobile.
+- [ ] **Dropdowns**: Chevron icon vertically centered, 16 px from right edge; 48 px right padding on select element.
+- [ ] **Zero Emojis**: SVGs only; zero emojis across all UI, text, logs, and sample data.
+- [ ] **No Clutter or Overlaps**: Proper z-index hierarchy and visible breathing room between distinct visual sections.

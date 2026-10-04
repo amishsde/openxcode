@@ -58,7 +58,7 @@ Full codebase security audit from an adversarial attacker mindset. Scans OWASP T
 ```
 
 ### 3. `/openxcode-design-principles [prompt]`
-Strict frontend UI/UX design standards. Enforces mobile-first 320px–4K responsiveness, 4px spacing scale, fluid clamp typography, native Android (Material Design 3) look & feel, zero emojis (SVGs only), and WCAG AA accessibility.
+Senior Multi-Platform UI/UX design system. Enforces cross-device excellence across Mobile (thumb zones, bottom sheets, `dvh`), Tablet (Master-Detail dual-pane, Navigation Rail), Laptop (collapsible sidebar, dense data tables, `Cmd+K`), and Desktop/4K Ultrawide (neck-strain container bounds, 3-column canvas, virtualized grids). Guarantees 4px spacing scale, Material Design 3, zero emojis (SVGs only), and WCAG AA accessibility.
 ```text
 /openxcode-design-principles Build a responsive settings dashboard
 ```

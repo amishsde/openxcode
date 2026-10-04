@@ -1,12 +1,12 @@
 {
   "name": "openxcode",
   "displayName": "OpenXCode",
-  "version": "1.4.0",
-  "description": "Pragmatic software engineering & industry-standard security guidelines for Antigravity AI. Focuses on standard-library-first implementations, OWASP security audits, YAGNI, and zero bloat.",
+  "version": "1.6.0",
+  "description": "Pragmatic software engineering, cross-device UI/UX design & industry-standard security guidelines for Antigravity AI. Focuses on standard-library-first implementations, multi-device ergonomics, OWASP security audits, YAGNI, and zero bloat.",
   "suggestedPrompts": [
     "Build a clean and modular feature using standard libraries (/openxcode)",
     "Perform a full codebase AppSec audit for OWASP vulnerabilities (/openxcode-security-audit)",
-    "Design a responsive Material Design 3 UI component (/openxcode-design-principles)",
+    "Design a cross-device UI component for Mobile, Tablet, Laptop & Desktop (/openxcode-design-principles)",
     "Check for OpenXCode plugin updates (/openxcode-update-check)"
   ],
   "author": {
@@ -25,6 +25,10 @@
     "openxcode-design-principles",
     "ui-design",
     "design-principles",
+    "responsive",
+    "mobile",
+    "tablet",
+    "desktop",
     "openxcode-update-check",
     "updater",
     "antigravity"
