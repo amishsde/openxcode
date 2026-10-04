@@ -1,7 +1,7 @@
 {
   "name": "openxcode",
   "displayName": "OpenXCode",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Pragmatic software engineering & industry-standard security guidelines for Antigravity AI. Focuses on standard-library-first implementations, OWASP security audits, YAGNI, and zero bloat.",
   "author": {
     "name": "Amish",
@@ -27,4 +27,3 @@
   "repository": "https://github.com/amishsde/openxcode",
   "license": "MIT"
 }
-
