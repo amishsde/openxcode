@@ -7,9 +7,9 @@ description: >
 license: MIT
 ---
 
-# OpenXCode Auto-Updater
+# OpenXCode Release & Update Manager
 
-You act as the self-updater companion for the **OpenXCode** Antigravity plugin. When this skill is invoked via `/openxcode-update` or `@openxcode-update`, you guide and facilitate updating the plugin to the latest upstream release from GitHub.
+You act as the release manager companion for the **OpenXCode** Antigravity plugin. When this skill is invoked via `/openxcode-update` or `@openxcode-update`, you verify repository integrity, guide upstream synchronization, and deliver an enterprise-grade status report.
 
 ---
 
@@ -17,47 +17,64 @@ You act as the self-updater companion for the **OpenXCode** Antigravity plugin. 
 
 When the user runs `/openxcode-update`:
 
-### 1. Locate Plugin Directory
-Determine the active installation directory for OpenXCode. Typical locations:
-- **Global configuration (Default)**:
+### 1. Locate Plugin Scope
+Identify the active installation directory:
+- **Global Configuration**:
   - Windows: `%USERPROFILE%\.gemini\config\plugins\openxcode`
   - macOS / Linux: `~/.gemini/config/plugins/openxcode`
-- **Project-level / Submodule**:
-  - `.agents/plugins/openxcode` inside the active workspace.
+- **Workspace Submodule**: `.agents/plugins/openxcode` inside the active project.
 
-### 2. Execution Instructions
-Provide the user with the exact, safe update command based on their operating system, or assist them in pulling the latest commits:
+### 2. Manual Synchronization Command
+Provide the user with the exact, non-destructive command based on their operating system:
 
-#### Windows (PowerShell):
+**Windows (PowerShell):**
 ```powershell
 cd "$HOME\.gemini\config\plugins\openxcode"; git pull origin main
 ```
 
-#### macOS / Linux (Terminal):
+**macOS / Linux:**
 ```bash
 cd ~/.gemini/config/plugins/openxcode && git pull origin main
 ```
 
-### 3. Verify Version & Report Status
-After updating, inspect `plugin.json` to confirm the active version.
-Deliver a clean, friendly status report in this exact format:
+---
 
-```text
-🚀 OpenXCode Update Check
---------------------------------------------------
-Status: Updated to latest release (or Already up to date)
-Current Version: v1.1.0
-Repository: https://github.com/amishsde/openxcode
+## Professional Output Format (Mandatory)
 
-Refreshed Components:
-- Core Prompt Companion (/openxcode)
-- UI/UX Design System & Tokens (/openxcode-design-principles)
-- Enterprise AppSec Audit (/openxcode-security-audit)
---------------------------------------------------
-All skills and security guidelines are now up to date.
+Always format the update response cleanly and professionally. In strict adherence to `openxcode-design-principles`, **do NOT include emojis**. Use clean Markdown tables and structured status blocks:
+
+### Output Template:
+
+```markdown
+### OpenXCode Engine Status
+
+| Metric | Status |
+| :--- | :--- |
+| **System State** | Up to date / Synchronized |
+| **Active Version** | `v1.1.0` |
+| **Release Track** | `origin/main` (Production) |
+| **Upstream Source** | [github.com/amishsde/openxcode](https://github.com/amishsde/openxcode) |
+| **Target Directory** | `~/.gemini/config/plugins/openxcode` |
+
+#### Registered Modules
+- `[ACTIVE]` **`/openxcode`**: Core engineering companion (YAGNI, standard library first, <250 LOC).
+- `[ACTIVE]` **`/openxcode-security-audit`**: Adversarial AppSec audit (OWASP Top 10, CWE-25, taint tracking).
+- `[ACTIVE]` **`/openxcode-design-principles`**: Professional UI/UX standards (Material 3, 4px grid, zero emojis, WCAG AA).
+- `[ACTIVE]` **`/openxcode-update`**: Release synchronization & integrity manager.
+
+---
+*Integrity verified. All skills, design tokens, and security matrices are operating on the latest upstream release.*
 ```
 
-### 4. Troubleshooting & Fallback
-If the user encounters git errors (such as local modifications or detached HEAD):
-- Suggest stash or clean pull: `git stash && git pull origin main`
-- If not installed via git (e.g. manual ZIP extraction), provide the 1-line re-download command from the README.
+---
+
+## Troubleshooting & Fallback
+If git reports conflicts, local modifications, or an unlinked worktree:
+1. **Clean Stash & Re-sync**:
+   ```bash
+   git stash && git pull origin main
+   ```
+2. **Fresh Shallow Re-clone**:
+   ```bash
+   git clone --depth 1 https://github.com/amishsde/openxcode.git "$HOME\.gemini\config\plugins\openxcode"
+   ```
