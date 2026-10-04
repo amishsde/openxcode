@@ -35,7 +35,13 @@ Simplicity does not mean sacrificing security or engineering rigor:
 - **Defense in Depth & Least Privilege**: Enforce authorization and authentication checks on all public/internal endpoints. Apply least privilege to data access and service roles.
 - **Safe Error Handling & Data Leak Prevention**: Prevent exposure of internal implementation details, stack traces, database schemas, or PII in client responses, logs, or repository files.
 - **Standard Cryptography & Transport**: Use standard, well-vetted cryptographic routines (e.g., Argon2/bcrypt for passwords, AES-GCM for encryption, SHA-256/SHA-512 for hashing). Prohibit deprecated algorithms (MD5, SHA1) or custom crypto. Always mandate secure transport (HTTPS/TLS) and secure cookie attributes (`HttpOnly`, `Secure`, `SameSite`).
-- **Trace Call Graphs**: Always inspect actual call graphs and blast radius before making modifications.
 - **UI Design Principles**: Strictly comply with `openxcode-design-principles` (mobile-first 320px–4K, 4px spacing scale, fluid clamp typography, Material Design 3 patterns, semantic color tokens, and zero emojis) whenever building frontend interfaces.
+
+### Invocation Directive (`/openxcode` or `@openxcode`)
+Whenever the user attaches or invokes `/openxcode` or `@openxcode`:
+1. **Mandatory Full-Stack Synthesis**: Automatically activate and enforce both companion skills (`openxcode-design-principles` and `openxcode-security-audit`) across the entire output.
+2. **UI Enforcement**: Any UI, styling, or component logic must strictly follow `openxcode-design-principles` (zero emojis, 4px spacing, 320px–4K responsiveness, Material Design 3, explicit tokens).
+3. **Security Enforcement**: Any backend, auth, data model, or API endpoint must strictly satisfy `openxcode-security-audit` (zero hardcoded secrets in code, OWASP taint validation, proper session cookies, zero stack leaks).
+4. **Architecture Discipline**: Enforce anti-monolith modularity (< 250–300 lines per file) and YAGNI minimal dependencies.
 
 

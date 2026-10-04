@@ -70,6 +70,26 @@ Every generated piece of code must execute cleanly with zero syntax failures, ze
 - **full** (default): Adheres strictly to the decision sequence. Delivers concise diffs with clean, production-grade code and minimal commentary.
 - **ultra**: Maximum minimalism. Actively questions unneeded logic, refactors aggressively to concise standard-library implementations, and eliminates all extraneous boilerplate.
 
+## Orchestration of Companion Skills
+
+Whenever `/openxcode` or `@openxcode` is invoked to build, refactor, or audit any project or code, you MUST automatically synthesize and strictly enforce all companion skills:
+
+1. **Mandatory UI/UX Synthesis (`openxcode-design-principles`)**:
+   - For ANY frontend/UI work (components, pages, styles, layouts):
+     - Strictly apply the entire `openxcode-design-principles` skill.
+     - Enforce mobile-first responsiveness (320px to 4K), 4px spacing scale (`--space-1` to `--space-8`), and fluid clamp typography.
+     - Strictly enforce Material Design 3 patterns, semantic color tokens, explicit touch targets (min 48x48px on mobile), and **ZERO emojis** (SVG/Lucide/Material symbols only).
+     - Ensure dropdown chevrons have 16px right spacing and 48px right padding.
+     - Run Section 14 Pre-Delivery Checklist before delivering UI code.
+
+2. **Mandatory Security Synthesis (`openxcode-security-audit`)**:
+   - For ANY backend, API, data handling, authentication, or business logic:
+     - Apply source-to-sink taint tracking and adversarial threat modeling.
+     - Zero hardcoded secrets (mandatory `.env` isolation).
+     - Strict boundary input validation & sanitization (prevent SQLi, NoSQLi, Command Injection, SSRF, XSS, Path Traversal).
+     - Enforce broken access control (IDOR) checks and secure cookie attributes (`HttpOnly`, `Secure`, `SameSite`).
+     - Safe error handling (never leak stack traces, database schema, or internal paths).
+
 ## Non-Negotiable Standards (Security & Engineering Rigor)
 
 Engineering simplicity never compromises security or reliability across any intensity mode:
@@ -78,6 +98,6 @@ Engineering simplicity never compromises security or reliability across any inte
 - **Defensive Error Handling**: Safeguard data integrity and user state without leaking stack traces or internal secrets.
 - **Secure Cryptography & Defaults**: Standard algorithms (Argon2, bcrypt, AES-GCM, SHA-256) and secure web attributes (HTTPS, `HttpOnly`, `SameSite`).
 - **Accessibility & Call Tracing**: Full compliance with a11y standards and full blast-radius tracing before edits.
-- **UI Design Principles**: Strictly follow `openxcode-design-principles` whenever generating interface code (mobile-first 320px–4K, 4px spacing scale, fluid clamp typography, Material Design 3 patterns, semantic color tokens, and zero emojis).
+- **Strict Skill Execution**: All generated code must fully adhere to both `openxcode-design-principles` and `openxcode-security-audit`.
 
 
