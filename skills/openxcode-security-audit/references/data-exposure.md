@@ -43,14 +43,36 @@ Developers often use `console.log`, `print`, or verbose loggers during developme
 
 ---
 
-## 3. Cryptographic Storage & Key Lifecycle (Secret Zero & KMS)
+## 3. Error Handling & Stack Trace Information Leakage
+
+### The Threat
+Unhandled exceptions and default framework error handlers expose detailed stack traces, framework versions, file system paths, database connection strings, and raw SQL error messages directly to callers in HTTP 500 responses. Attackers use these leaks to map internal architecture and discover injection targets.
+
+### Standards
+- **Opaque Production Error Responses**: Never send raw error objects or stack traces (`error.stack`, `err.message`) to clients in production. Return clean, standardized error payloads with non-descriptive messages:
+  ```json
+  {
+    "error": {
+      "code": "INTERNAL_SERVER_ERROR",
+      "message": "An unexpected error occurred. Please try again later.",
+      "requestId": "req_84f92a10"
+    }
+  }
+  ```
+- **Centralized Error Middleware**: Intercept all unhandled rejections and exceptions in global error middleware. Log full sanitized diagnostic details internally (including correlation IDs) while serving generic HTTP status responses to users.
+- **Database Driver Error Redaction**: Never surface raw ORM/database error dumps (e.g., PostgreSQL `syntax error at or near...`, duplicate key errors, table schemas) to client responses. Map them to domain-level status codes (e.g., 400 Bad Request, 409 Conflict).
+- **Enforce Production Mode Flags**: Always run applications with strict production runtime flags (e.g. `NODE_ENV=production`) so frameworks disable automatic HTML stack trace pages.
+
+---
+
+## 4. Cryptographic Storage & Key Lifecycle (Secret Zero & KMS)
 
 - **Secret Zero Principle**: No master encryption keys in source control, Docker images, or build logs. Use AWS KMS, GCP KMS, Vault, or sealed secret operators.
 - **Envelope Encryption**: High-scale databases should use envelope encryption: Data Encryption Keys (DEKs) encrypt the data rows locally, while a Key Encryption Key (KEK) managed in KMS protects the DEKs.
 
 ---
 
-## 4. Immutable Audit Logging & Non-Repudiation (SOC 2 / ISO 27001)
+## 5. Immutable Audit Logging & Non-Repudiation (SOC 2 / ISO 27001)
 
 - **Mutation Audit Trail**: Every mutation on sensitive entities (permissions, billing, user access, data export) must emit an immutable audit log entry.
 - **PII Scrubbing**: Audit logs must automatically sanitize passwords, tokens, API keys, card numbers, and SSNs before writing to disk or streaming to Datadog/CloudWatch:
@@ -68,7 +90,7 @@ Developers often use `console.log`, `print`, or verbose loggers during developme
 
 ---
 
-## 5. Client Bundle, Source Map & SSR Hydration Leaks
+## 6. Client Bundle, Source Map & SSR Hydration Leaks
 
 ### The Threat
 Modern frameworks (Next.js, Nuxt, Remix) frequently leak server-side data through automatic serialization into client-accessible bundles and HTML pages.
@@ -81,7 +103,7 @@ Modern frameworks (Next.js, Nuxt, Remix) frequently leak server-side data throug
 
 ---
 
-## 6. Third-Party SDK & Telemetry Safeguards
+## 7. Third-Party SDK & Telemetry Safeguards
 
 - **Before-Send Scrubbing**: Configure APM and error reporting filters (e.g., Sentry `beforeSend` callback) to scrub:
   - `Authorization` and `Cookie` headers
@@ -91,7 +113,7 @@ Modern frameworks (Next.js, Nuxt, Remix) frequently leak server-side data throug
 
 ---
 
-## 7. Verification Discipline
+## 8. Verification Discipline
 
 - **Never Assume Safety**: Code is not safe merely because a logger call was omitted.
 - **Inspect Real Exposure Paths**: Always verify actual exposure vectors:

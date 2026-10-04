@@ -85,4 +85,26 @@ Without cryptographic signature verification, an attacker can directly post forg
 
 - **Body Size Restrictions**: Reject unbounded JSON payloads. Configure server body parsers with explicit limits (e.g., `express.json({ limit: '1mb' })`).
 - **Strict Database Query Pagination**: Never permit unlimited queries (`db.users.findMany()`). Always enforce mandatory `take` / `limit` caps (e.g. maximum 100 items per request).
-- **File Upload Guardrails**: Enforce strict file size limits and MIME-type allowlists on file upload endpoints.
+
+---
+
+## 7. Enterprise File Upload Safety
+
+### The Threat
+Allowing users to upload files without rigorous validation introduces Remote Code Execution (RCE) via web shell uploads, stored XSS via SVGs/HTML, path traversal via malformed filenames, and denial-of-service via huge archives (zip bombs).
+
+### Standards
+- **Binary Magic Byte Inspection**: Never trust client-controlled `Content-Type` headers or file extensions (`.jpg`). Always verify the actual binary header/magic bytes using trusted inspectors (e.g. `file-type` in Node.js, `python-magic` in Python):
+  ```typescript
+  // SECURE: Verify binary magic bytes
+  import { fileTypeFromBuffer } from 'file-type';
+  const type = await fileTypeFromBuffer(fileBuffer);
+  const ALLOWED_MIME = ['image/jpeg', 'image/png', 'application/pdf'];
+  if (!type || !ALLOWED_MIME.includes(type.mime)) {
+    throw new SecurityError('Invalid or spoofed file type');
+  }
+  ```
+- **Random UUID Renaming**: Completely discard user-supplied original filenames upon receipt. Generate a random UUID/nanoid for storage (`${crypto.randomUUID()}.${safeExt}`). This completely neutralizes directory traversal (`../../etc/passwd`) and file overwrite attacks.
+- **Non-Executable Storage Isolation**: Never store uploaded files inside the web server's publicly executed document root. Store uploads in dedicated private cloud storage (AWS S3, GCP Cloud Storage) or outside the application directory where script execution permissions are disabled (`noexec`).
+- **SVG & HTML Media Sanitization**: SVG files can contain embedded `<script>` or onload handlers that execute XSS when viewed in browsers. Either disallow SVG uploads, strictly sanitize them with a dedicated XML sanitizer, or serve them with `Content-Disposition: attachment` and `Content-Security-Policy: sandbox`.
+- **Pre-Buffer Size Guardrails**: Enforce stream-level file size caps (e.g., maximum 5MB) before buffering into memory to prevent server memory exhaustion.

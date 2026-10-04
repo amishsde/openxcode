@@ -23,6 +23,10 @@ Tainted input must never reach sinks without validation or parameterized boundar
 - **Client DOM Sinks**: Raw HTML injection (`dangerouslySetInnerHTML`, `innerHTML`, template interpolation).
 - **Network Request Sinks**: Dynamic HTTP calls (`fetch()`, `axios()`, `http.get()` with user-supplied URLs).
 
+### Strict Schema Validation & Mass-Assignment Defenses
+- Validate all incoming payloads at trust boundaries using strict schemas (e.g., Zod, Valibot, Pydantic, Joi).
+- Reject or strip unknown properties (`.strict()` in Zod) to prevent mass assignment vulnerabilities where attackers inject elevated fields (e.g., `{ role: "admin", isVerified: true }`).
+
 ---
 
 ## 2. SQL & NoSQL Injection Defenses
@@ -96,3 +100,12 @@ When the server fetches content from a user-supplied URL (e.g. webhooks, link pr
   }
   ```
 - **XXE Prevention**: When parsing XML, disable external entity resolution (`disallow-doctype-decl: true`, `resolveExternals: false`).
+
+---
+
+## 9. Software Supply Chain & Dependency Security (OWASP A06)
+
+- **Automated Known CVE Auditing**: Inspect dependency manifests (`package.json`, `requirements.txt`, `Cargo.toml`) against vulnerability databases using standard security tools (`npm audit`, `pnpm audit`, `pip-audit`).
+- **Malicious Lifecycle Hook Detection**: Audit third-party packages for suspicious `preinstall`, `install`, or `postinstall` shell scripts that execute curl or arbitrary binaries during `npm install`.
+- **Strict Lockfile Pinning**: Always commit and enforce lockfiles (`package-lock.json`, `pnpm-lock.yaml`, `poetry.lock`) using frozen lockfile commands in CI/CD pipelines to prevent unexpected upstream dependency updates.
+- **Dependency Hygiene**: Flag deprecated, unmaintained packages (>2 years without commits), and suspicious typosquatted package names.

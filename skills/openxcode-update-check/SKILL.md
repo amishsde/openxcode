@@ -3,7 +3,7 @@ name: openxcode-update-check
 description: >
   Checks for OpenXCode plugin updates by comparing the local plugin.json version
   with the latest version on GitHub, reporting status, current version, latest version,
-  and update command if available.
+  and providing the update command in all scenarios.
 license: MIT
 ---
 
@@ -16,20 +16,22 @@ When invoked via `/openxcode-update-check` or `@openxcode-update-check`:
    `https://raw.githubusercontent.com/amishsde/openxcode/main/plugin.json`
 3. **Compare & Report**:
    - Do NOT include any changes or changelog list.
-   - If remote version is newer than local version -> Report **Status: Update Available**, show both **Current Version** and **Latest Version**, and provide the terminal update command.
-   - If versions match -> Report **Status: Up to date**, and display both **Current Version** and **Latest Version**.
+   - If remote version is newer than local version -> Report **Status: Update Available**.
+   - If versions match -> Report **Status: Up to date**.
+   - Display both **Current Version** and **Latest Version**.
+   - **MANDATORY**: In BOTH cases (whether an update is available or already up to date), ALWAYS provide the exact terminal commands to update / re-sync.
 
 ---
 
 ### Output Format
 
-#### When an update is available:
+#### 1. When an update is available:
 ```markdown
 ### OpenXCode Update Check
 
 - **Status**: Update Available
-- **Current Version**: `v1.0.0`
-- **Latest Version**: `v1.0.1`
+- **Current Version**: `v1.3.3`
+- **Latest Version**: `v1.3.4`
 
 #### Command to Update:
 **Windows (PowerShell):**
@@ -43,11 +45,22 @@ cd ~/.gemini/config/plugins/openxcode && git pull origin main
 ```
 ```
 
-#### When already up to date:
+#### 2. When already up to date:
 ```markdown
 ### OpenXCode Update Check
 
 - **Status**: Up to date
-- **Current Version**: `v1.2.1`
-- **Latest Version**: `v1.2.1`
+- **Current Version**: `v1.4.0`
+- **Latest Version**: `v1.4.0`
+
+#### Command to Update:
+**Windows (PowerShell):**
+```powershell
+cd "$HOME\.gemini\config\plugins\openxcode"; git pull origin main
+```
+
+**macOS / Linux:**
+```bash
+cd ~/.gemini/config/plugins/openxcode && git pull origin main
+```
 ```
