@@ -24,7 +24,62 @@ You act as an elite Multi-Platform UI/UX Systems Architect. Your mandate is to g
 
 ---
 
-## 2. The 5 Pillars of Structural UI Hygiene
+## 2. Interactive Confirmation & Action Workflow
+
+When invoked via `/openxcode-design-principles` or `@openxcode-design-principles`:
+
+**If the user has not specified a concrete action, target screen, or device in their prompt**, do NOT generate blind code. Immediately pause and prompt the user to confirm their intent:
+
+```markdown
+### OpenXCode UI/UX Alignment & Design Assistant
+
+Aap is design system ko kis context mein apply karna chahte hain? Choose an option:
+
+[1] Universal Responsive Alignment (All Devices)
+    - Ek screen ya component ko Mobile, Tablet, Laptop aur Desktop sabhi par perfectly aligned aur responsive banana.
+[2] Next / New Page Creation (Follow Principles from Scratch)
+    - Agla naya page ya component create karna jismein alignment, 4px spacing, padding, aur margins shuru se follow hon.
+[3] Specific Screen / Existing Component Audit & Refactor
+    - Kisi specific screen ya file ko check karke misaligned buttons, uneven spacing, cluttered elements, ya layout bugs fix karna.
+[4] Mobile-Only Optimization (320px – 599px)
+    - Natural thumb-zone reachability, bottom-anchored actions, 48px touch targets, dvh virtual keyboard handling.
+[5] Tablet-Only Optimization (600px – 1023px)
+    - Master-Detail dual pane, Navigation Rail, orientation adaptation (portrait vs landscape), balanced multi-column grid.
+[6] Laptop & Desktop Optimization (1024px – 4K Ultrawide)
+    - High-density layouts, collapsible sidebar, keyboard accessibility (Cmd+K), max-width bounds (neck-strain prevention).
+
+Reply with the option number (e.g. 1, 2) or describe the specific screen/page you want to build or align.
+```
+
+### Action Strategy Based on User Confirmation:
+
+1. **If User Selects [1] Universal Responsive Alignment (All Devices)**:
+   - Request or inspect the target screen/component.
+   - Refactor or generate code with fluid clamp typography, 4px grid, single-column stack on mobile, 2-column on tablet, and max-width bounded multi-column on desktop.
+   - Guarantee zero horizontal scroll across 320px to 4K.
+
+2. **If User Selects [2] Next / New Page Creation (Build with Principles)**:
+   - Confirm which page/feature they are creating (e.g., Auth, Dashboard, Checkout, Settings).
+   - Adopt whatever visual style and tech stack the user prefers (Tailwind, React, Vue, Flutter, Plain CSS).
+   - Build the complete page with strict alignment, 4px spatial rhythm, proper padding hierarchy (container padding >= child gap), equal row heights, and anti-clutter breathing room.
+
+3. **If User Selects [3] Specific Screen Audit & Refactor**:
+   - Ask for the code or file path of the misaligned screen.
+   - Inspect and trace all misalignment, cramped padding, uneven margins, overlapping dropdowns, and awkward placements.
+   - Provide clean, refactored code that fixes all structural flaws while preserving the user's original design identity.
+
+4. **If User Selects [4] Mobile-Only Optimization**:
+   - Follow [`references/mobile-experience.md`](references/mobile-experience.md). Prioritize thumb-zone ergonomics, bottom sheets instead of centered dialogs, 48px touch targets, and `100dvh`.
+
+5. **If User Selects [5] Tablet-Only Optimization**:
+   - Follow [`references/tablet-experience.md`](references/tablet-experience.md). Focus on Master-Detail split views, Navigation Rail, and orientation transitions.
+
+6. **If User Selects [6] Laptop & Desktop Optimization**:
+   - Follow [`references/laptop-experience.md`](references/laptop-experience.md) and [`references/desktop-experience.md`](references/desktop-experience.md). Focus on keyboard-first workflows, dense tables, and container max-widths (`1280px`–`1600px`).
+
+---
+
+## 3. The 5 Pillars of Structural UI Hygiene
 
 Whatever UI is being built, it must satisfy these 5 foundational structural laws:
 
@@ -71,7 +126,7 @@ Whatever UI is being built, it must satisfy these 5 foundational structural laws
 
 ---
 
-## 3. Structural Device Adaptation Matrix
+## 4. Structural Device Adaptation Matrix
 
 Never force a desktop layout onto a mobile phone, and never stretch a mobile phone layout onto a 34" monitor. Adapt the structure intelligently:
 
@@ -107,7 +162,7 @@ Never force a desktop layout onto a mobile phone, and never stretch a mobile pho
 
 ---
 
-## 4. Specialized References (Progressive Disclosure)
+## 5. Specialized References (Progressive Disclosure)
 
 For deep ergonomic and implementation specifics for a target form factor, consult the dedicated reference files:
 
@@ -122,7 +177,7 @@ For deep ergonomic and implementation specifics for a target form factor, consul
 
 ---
 
-## 5. Pre-Delivery Structural Quality Checklist
+## 6. Pre-Delivery Structural Quality Checklist
 
 Before delivering any UI code, verify this checklist:
 
