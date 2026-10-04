@@ -42,6 +42,10 @@ Whenever the user attaches or invokes `/openxcode` or `@openxcode`:
 1. **Mandatory Full-Stack Synthesis**: Automatically activate and enforce both companion skills (`openxcode-design-principles` and `openxcode-security-audit`) across the entire output.
 2. **UI Enforcement**: Any UI, styling, or component logic must strictly follow `openxcode-design-principles` (zero emojis, 4px spacing, 320px–4K responsiveness, Material Design 3, explicit tokens).
 3. **Security Enforcement**: Any backend, auth, data model, or API endpoint must strictly satisfy `openxcode-security-audit` (zero hardcoded secrets in code, OWASP taint validation, proper session cookies, zero stack leaks).
-4. **Architecture Discipline**: Enforce anti-monolith modularity (< 250–300 lines per file) and YAGNI minimal dependencies.
+4. **Adaptive Scale & Architecture Discipline**: Automatically adapt structural rigor to the project scale:
+   - **Tier 1 (CLI / Single scripts < 500 LOC)**: Minimal flat structure, standard-library first, zero unnecessary folder indirection.
+   - **Tier 2 (Web & Mobile Apps 500–10k LOC)**: Anti-monolith modularity (< 250–300 lines per file), clear `components/`, `services/`, `hooks/`, `types/`.
+   - **Tier 3 (Enterprise Monorepos / DDD > 10k LOC)**: Bounded contexts, workspace packages, circular-dependency guards, distributed rate limiting, and multi-tenant isolation.
+5. **Future-Proof Skill Extensibility**: When skills expand or new domain requirements arrive, always utilize Anthropic Progressive Disclosure references (`references/`) to preserve lean AI context without token bloat.
 
 

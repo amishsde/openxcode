@@ -39,6 +39,10 @@ A well-structured codebase scales seamlessly and optimizes AI context efficiency
   - `hooks/` or `state/`: Business logic, reactive state, and lifecycle management.
   - `types/` or `schemas/`: Type definitions, interfaces, and validation contracts.
   - `utils/` or `helpers/`: Pure utility functions and shared formatters.
+- **Multi-Tier Dynamic Scale Adaptation**: OpenXCode dynamically scales its architectural demands based on project tier (refer to [`references/scaling-matrix.md`](references/scaling-matrix.md)):
+  - **Tier 1 (CLI / Micro-utility < 500 LOC)**: Extreme minimalism, single-file or flat layout, zero boilerplate.
+  - **Tier 2 (Application 500 - 10k LOC)**: Modular separation (`components/`, `services/`, `hooks/`, `types/`, `utils/`), < 250 LOC per file.
+  - **Tier 3 (Enterprise Monorepo / DDD > 10k LOC)**: Bounded domain contexts, workspace packages (`apps/`, `packages/`), strict circular dependency checks, and distributed telemetry.
 - **AI Token Optimization**: Modular architecture directly optimizes AI performance—smaller, specialized files mean the AI reads and writes only the relevant context, saving input/output tokens, reducing hallucinations, and producing precise, regression-free diffs.
 
 ## Zero-Error Production Discipline (Syntax, Runtime & Console Errors)

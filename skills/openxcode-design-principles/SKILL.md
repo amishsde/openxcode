@@ -20,10 +20,10 @@ Follow every rule below whenever you generate UI code (web, hybrid or app). If a
 - Look and feel on mobile must match a modern native Android app (Material Design 3).
 - No emojis anywhere. Use icons only.
 - No decorative or attention-grabbing animation. Only functional, short, subtle motion.
-- Never hard-code random values. Use the tokens and scales defined in this document or import from [references/tokens.css](file:///d:/amishsde/amish-project/production/openxcode/skills/openxcode-design-principles/references/tokens.css).
+- Never hard-code random values. Use the tokens and scales defined in this document or import from [references/tokens.css](references/tokens.css).
 
 > [!TIP]
-> **Anthropic Progressive Disclosure Reference**: For full CSS design tokens, standard reset, and variables, refer directly to [`references/tokens.css`](file:///d:/amishsde/amish-project/production/openxcode/skills/openxcode-design-principles/references/tokens.css).
+> **Anthropic Progressive Disclosure Reference**: For full CSS design tokens, standard reset, and variables, refer directly to [`references/tokens.css`](references/tokens.css).
 
 ---
 
@@ -41,15 +41,8 @@ The layout must work without breaking on every common screen width.
 | Desktop | 1600 - 2559 px | 1680, 1920, 2048 |
 | Large desktop / 2K / 4K scaled | 2560 px and above | 2560, 3840 |
 
-Breakpoints to use in CSS (min-width, mobile-first):
-
-```css
---bp-sm: 360px;
---bp-md: 600px;
---bp-lg: 840px;
---bp-xl: 1280px;
---bp-2xl: 1600px;
-```
+Breakpoints (min-width, mobile-first):
+- Defined as `--bp-sm: 360px`, `--bp-md: 600px`, `--bp-lg: 840px`, `--bp-xl: 1280px`, `--bp-2xl: 1600px` in [`references/tokens.css`](references/tokens.css).
 
 Rules:
 - Never allow horizontal page scroll at any width from 320 px upward.
@@ -82,18 +75,8 @@ Rules:
 
 ## 4. Spacing System
 
-Use a 4 px base unit. Only these values are allowed for padding, margin and gap:
-
-```css
---space-1: 4px;
---space-2: 8px;
---space-3: 12px;
---space-4: 16px;
---space-5: 24px;
---space-6: 32px;
---space-7: 48px;
---space-8: 64px;
-```
+Use a 4 px base unit. Only 4px increments are allowed (`--space-1` to `--space-8` from [`references/tokens.css`](references/tokens.css)):
+`4px` (1), `8px` (2), `12px` (3), `16px` (4), `24px` (5), `32px` (6), `48px` (7), `64px` (8).
 
 Usage guide:
 - Icon to label gap: 8 px.
@@ -113,7 +96,7 @@ Font:
 - Primary: `Roboto` (native Android feel). Fallback: `Inter, system-ui, -apple-system, "Segoe UI", sans-serif`.
 - Use one family for the whole product. Monospace only for code.
 
-Type scale (fluid, using clamp):
+Type scale (fluid clamp tokens defined in [`references/tokens.css`](references/tokens.css)):
 
 | Role | Mobile | Desktop | Weight | Line height |
 |---|---|---|---|---|
@@ -125,15 +108,6 @@ Type scale (fluid, using clamp):
 | Body (default) | 14 - 16 px | 16 px | 400 | 1.5 |
 | Label / button | 14 px | 14 - 15 px | 500 | 1.25 |
 | Caption / helper | 12 px | 13 px | 400 | 1.4 |
-
-```css
-:root {
-  --fs-display: clamp(1.75rem, 1.2rem + 2.2vw, 3rem);
-  --fs-h1: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);
-  --fs-h2: clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem);
-  --fs-body: clamp(0.875rem, 0.85rem + 0.15vw, 1rem);
-}
-```
 
 Rules:
 - Minimum text size is 12 px. Body text never below 14 px.
@@ -147,38 +121,15 @@ Rules:
 
 ## 6. Color System
 
-Define every color as a token (CSS variables). Never write raw hex inside components.
-
-```css
-:root {
-  --color-primary: #1A73E8;
-  --color-on-primary: #FFFFFF;
-  --color-primary-container: #D3E3FD;
-  --color-on-primary-container: #041E49;
-
-  --color-surface: #FFFFFF;
-  --color-surface-variant: #F1F3F4;
-  --color-background: #F8F9FA;
-  --color-outline: #747775;
-  --color-outline-variant: #C4C7C5;
-
-  --color-text-primary: #1F1F1F;
-  --color-text-secondary: #444746;
-  --color-text-disabled: #9AA0A6;
-
-  --color-success: #1E8E3E;
-  --color-warning: #B06000;
-  --color-error: #D93025;
-}
-```
+Define every color as a token. Never write raw hex inside components. Use `--color-primary`, `--color-surface`, `--color-outline`, and `--color-text-*` defined in [`references/tokens.css`](references/tokens.css).
 
 Rules:
 - One primary color plus neutrals. Semantic colors (success, warning, error) only for status.
 - Text contrast must meet WCAG AA: 4.5:1 for normal text, 3:1 for large text and UI borders.
 - Text hierarchy: primary text for titles, secondary text for supporting info, disabled for inactive.
-- Never use pure black (`#000`) text on pure white. Use the text tokens above.
+- Never use pure black (`#000`) text on pure white. Use semantic text tokens.
 - Never communicate state with color alone. Pair it with an icon or text.
-- Provide a dark theme with `prefers-color-scheme: dark` using the same token names. Dark surfaces use dark grey (`#121212` - `#1E1E1E`), not pure black.
+- Provide a dark theme with `prefers-color-scheme: dark` using identical token names. Dark surfaces use dark grey (`#121212` - `#1E1E1E`), not pure black.
 - Gradients are not allowed unless the user asks for them.
 
 ---
@@ -300,16 +251,7 @@ Allowed (only when needed):
 - Toast / snackbar: fade and slide in, 200 ms.
 
 Timing and easing:
-
-```css
-:root {
-  --motion-fast: 120ms;
-  --motion-base: 200ms;
-  --motion-slow: 300ms;
-  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
-  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
-}
-```
+- Standard durations and cubic-bezier curves (`--motion-fast`, `--motion-base`, `--motion-slow`, `--ease-standard`, `--ease-exit`, and reduced-motion reset) are declared in [`references/tokens.css`](references/tokens.css).
 
 Forbidden:
 - Infinite or looping animations (except the loading spinner / skeleton while data loads).
@@ -317,18 +259,7 @@ Forbidden:
 - Auto-playing carousels, marquees, typewriter effects and parallax.
 - Animations longer than 400 ms. Scroll-jacking. Animations that delay the user from acting.
 - Animating layout properties (`width`, `height`, `top`, `left`, `margin`) when `transform` and `opacity` can do the job.
-
-Always include:
-
-```css
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    transition-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-  }
-}
-```
+- Always respect `@media (prefers-reduced-motion: reduce)`.
 
 ---
 

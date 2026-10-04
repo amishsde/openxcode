@@ -21,6 +21,9 @@ When reviewing code, never assume good faith or rely on client-side constraints:
 4. **Data Tampering & Business Logic Abuse**: Can an attacker send negative quantities, manipulated prices, or replay expired requests to subvert business rules?
 5. **Exploit Chain & Blast Radius**: Can a minor flaw (like a reflected input or error leak) be chained into full account takeover or remote execution?
 
+> [!TIP]
+> **Anthropic Progressive Disclosure Reference**: For advanced enterprise threat vectors (multi-tenant IDOR, distributed rate limiting, envelope encryption, SOC 2 audit logs), refer directly to [`references/enterprise-security.md`](references/enterprise-security.md).
+
 ---
 
 ## Deep Security Audit Methodology
@@ -86,10 +89,10 @@ Present all detected vulnerabilities in a clean, compact markdown table:
 
 | # | Severity | CVSS | Vulnerability / Issue | Location | Impact Summary |
 | :-: | :--- | :-: | :--- | :--- | :--- |
-| 1 | `CRITICAL` | 9.8 | Hardcoded Database Secret | [`src/db.ts:L14`](file:///path/to/src/db.ts#L14) | Credentials exposed in repository |
-| 2 | `HIGH` | 8.5 | Broken Access Control (IDOR) | [`api/orders.ts:L42`](file:///path/to/api/orders.ts#L42) | Unauthorized users can access other orders |
-| 3 | `HIGH` | 7.5 | Missing Endpoint Rate Limiting | [`api/auth/otp.ts:L18`](file:///path/to/api/auth/otp.ts#L18) | Susceptible to OTP brute-force abuse |
-| 4 | `MEDIUM` | 5.3 | Missing Cookie Security Flags | [`lib/session.ts:L29`](file:///path/to/lib/session.ts#L29) | Session cookie missing `HttpOnly` flag |
+| 1 | `CRITICAL` | 9.8 | Hardcoded Database Secret | [`src/db.ts:L14`](src/db.ts#L14) | Credentials exposed in repository |
+| 2 | `HIGH` | 8.5 | Broken Access Control (IDOR) | [`api/orders.ts:L42`](api/orders.ts#L42) | Unauthorized users can access other orders |
+| 3 | `HIGH` | 7.5 | Missing Endpoint Rate Limiting | [`api/auth/otp.ts:L18`](api/auth/otp.ts#L18) | Susceptible to OTP brute-force abuse |
+| 4 | `MEDIUM` | 5.3 | Missing Cookie Security Flags | [`lib/session.ts:L29`](lib/session.ts#L29) | Session cookie missing `HttpOnly` flag |
 
 *(Keep each table cell concise. Do NOT dump long diffs or paragraphs here. Detailed code walkthroughs are provided on-demand via `explain #<id>` or resolved via `fix`).*
 
