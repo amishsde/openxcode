@@ -22,13 +22,13 @@ git clone --depth 1 https://github.com/amishsde/openxcode.git ~/.gemini/config/p
 
 ## Updating
 
-### Instant In-Chat Update (Recommended)
+### Check Updates In-Chat (Recommended)
 Inside any Antigravity chat session, run:
 ```text
-/openxcode-update
+/openxcode-update-check
 ```
 
-### Manual Update (Terminal)
+### Apply Update (Terminal)
 **Windows (PowerShell):**
 ```powershell
 cd "$HOME\.gemini\config\plugins\openxcode"; git pull origin main
@@ -63,10 +63,10 @@ Strict frontend UI/UX design standards. Enforces mobile-first 320px–4K respons
 /openxcode-design-principles Build a responsive settings dashboard
 ```
 
-### 4. `/openxcode-update`
-Pulls the latest skills, design tokens, and security rules directly from GitHub.
+### 4. `/openxcode-update-check`
+Checks active version, update status, and displays the exact terminal command to sync.
 ```text
-/openxcode-update
+/openxcode-update-check
 ```
 
 ---
