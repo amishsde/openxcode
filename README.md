@@ -10,12 +10,12 @@ Clone the repository into your local Antigravity plugins directory:
 
 ### Windows (PowerShell)
 ```powershell
-git clone https://github.com/amishsde/openxcode.git "$HOME\.gemini\config\plugins\openxcode"
+git clone --depth 1 https://github.com/amishsde/openxcode.git "$HOME\.gemini\config\plugins\openxcode"
 ```
 
 ### macOS / Linux
 ```bash
-git clone https://github.com/amishsde/openxcode.git ~/.gemini/config/plugins/openxcode
+git clone --depth 1 https://github.com/amishsde/openxcode.git ~/.gemini/config/plugins/openxcode
 ```
 
 ---
