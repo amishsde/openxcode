@@ -28,8 +28,8 @@ When invoked via `/openxcode-update-check` or `@openxcode-update-check`:
 ### OpenXCode Update Check
 
 - **Status**: Update Available
-- **Current Version**: `v1.2.0`
-- **Latest Version**: `v1.2.1`
+- **Current Version**: `v1.0.0`
+- **Latest Version**: `v1.0.1`
 
 #### Command to Update:
 **Windows (PowerShell):**
