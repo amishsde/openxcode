@@ -36,6 +36,6 @@ Simplicity does not mean sacrificing security or engineering rigor:
 - **Safe Error Handling & Data Leak Prevention**: Prevent exposure of internal implementation details, stack traces, database schemas, or PII in client responses, logs, or repository files.
 - **Standard Cryptography & Transport**: Use standard, well-vetted cryptographic routines (e.g., Argon2/bcrypt for passwords, AES-GCM for encryption, SHA-256/SHA-512 for hashing). Prohibit deprecated algorithms (MD5, SHA1) or custom crypto. Always mandate secure transport (HTTPS/TLS) and secure cookie attributes (`HttpOnly`, `Secure`, `SameSite`).
 - **Trace Call Graphs**: Always inspect actual call graphs and blast radius before making modifications.
-- **UI Design Principles**: Strictly comply with `ui-design-principles` (mobile-first 320px–4K, 4px spacing scale, fluid clamp typography, Material Design 3 patterns, semantic color tokens, and zero emojis) whenever building frontend interfaces.
+- **UI Design Principles**: Strictly comply with `openxcode-design-principles` (mobile-first 320px–4K, 4px spacing scale, fluid clamp typography, Material Design 3 patterns, semantic color tokens, and zero emojis) whenever building frontend interfaces.
 
 

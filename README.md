@@ -86,7 +86,7 @@ cd ~/.gemini/config/plugins/openxcode && git pull origin main
 
 ## Usage
 
-### The 2 Core Slash Commands
+### The 3 Core Slash Commands
 
 1. **`/openxcode <prompt>` (Primary Prompt Companion)**  
    Attach this command whenever you prompt the AI for features, refactoring, or bug fixes. The AI thoroughly analyzes your project context, rejects unnecessary dependencies (YAGNI), enforces modular architecture (<250 lines), and writes clean, standard-library-first code.
@@ -104,6 +104,12 @@ cd ~/.gemini/config/plugins/openxcode && git pull origin main
    - `fix recommended`: Fixes Critical and High severity risks immediately.
    - `fix #1`: Resolves a specific vulnerability finding.
    - `explain #1`: Shows in-depth exploit walkthrough and proof for a specific issue.
+
+3. **`/openxcode-design-principles` (Strict UI/UX Standards)**  
+   Enforces professional UI/UX design standards for front-end code generation: guaranteed mobile-first responsiveness (320px to 4K), 4px spacing scale, fluid clamp typography, native Android / Material Design 3 look and feel, zero emojis, and WCAG AA accessibility.
+   ```text
+   /openxcode-design-principles Build a responsive settings page
+   ```
 
 
 ### Natural Interaction
@@ -190,7 +196,7 @@ cd ~/.gemini/config/plugins/openxcode && git pull origin main
 
 ---
 
-## Usage (2 Core Slash Commands)
+## Usage (3 Core Slash Commands)
 
 1. **`/openxcode <prompt>` (Primary Prompt Companion)**  
    Jab bhi aap AI ko koi prompt dete hain, is command ko attach karein:
@@ -209,6 +215,12 @@ cd ~/.gemini/config/plugins/openxcode && git pull origin main
    - `fix recommended`: Sirf Critical aur High severity issues ko pehle fix karega.
    - `fix #1`: Kisi specific issue ko fix karega.
    - `explain #1`: Us specific issue ka detail exploit explanation aur proof dikhayega.
+
+3. **`/openxcode-design-principles` (Strict UI/UX Design Standards)**  
+   Frontend UI code banate waqt strict design principles enforce karta hai: mobile-first responsiveness (320px se 4K tak), 4px spacing scale, fluid typography, native Android/Material Design 3 feel, zero emojis, aur WCAG AA accessibility.
+   ```text
+   /openxcode-design-principles Build a responsive dashboard
+   ```
 
 
 ---
