@@ -1,6 +1,6 @@
 # API Abuse, Distributed Rate Limiting & Resource Exhaustion (DoS / ReDoS)
 
-This reference covers defenses against denial-of-service, automated form spam, rate limiting gaps, distributed traffic exhaustion, and Denial of Wallet (DoW).
+This reference covers defenses against denial-of-service, automated form spam, rate limiting gaps, distributed traffic exhaustion, webhook tampering, and GraphQL/WebSocket vulnerabilities.
 
 ---
 
@@ -45,7 +45,33 @@ In high-scale or serverless systems, in-memory rate limits fail across distribut
 
 ---
 
-## 3. Regular Expression Denial of Service (ReDoS)
+## 3. Webhook Signature Verification (HMAC)
+
+### The Threat
+Without cryptographic signature verification, an attacker can directly post forged webhook payloads (e.g. `checkout.session.completed`) to credit accounts or fulfill orders without payment.
+
+### Standards
+- **Cryptographic HMAC Validation**: Always verify the webhook signature header (e.g. `Stripe-Signature`, `X-Hub-Signature-256`) using the configured webhook signing secret and `crypto.timingSafeEqual`.
+- **Raw Body Preserved**: Compute the HMAC digest over the **raw, unparsed request buffer**, never over re-serialized JSON (which mutates key ordering and spacing).
+- **Replay Protection**: Validate timestamp headers to reject replayed webhook requests older than 5 minutes (300 seconds).
+
+---
+
+## 4. GraphQL & WebSocket Security
+
+### GraphQL Defenses
+- **Query Depth Limiting**: Enforce a strict maximum query depth (typically <= 6-7 levels) to prevent circular relation queries from exhausting database resources.
+- **Query Complexity Analysis**: Calculate complexity scores per query to block expensive nested pagination attacks before database execution.
+- **Disable Production Introspection**: Disable schema introspection and GraphiQL IDE in production environments (`introspection: false`).
+
+### WebSocket Defenses
+- **Origin Header Validation**: Verify the `Origin` header during the HTTP connection upgrade handshake to eliminate Cross-Site WebSocket Hijacking (CSWSH).
+- **Authentication on Upgrade**: Authenticate the user during the initial HTTP upgrade handshake using secure session cookies or tokens before opening the WebSocket channel.
+- **Frame Rate Limiting**: Apply incoming message rate limits on active socket connections.
+
+---
+
+## 5. Regular Expression Denial of Service (ReDoS)
 
 - **Evil Regex Detection**: Scan regular expressions for nested quantifiers that cause exponential backtracking on crafted inputs:
   - `(a+)+$`
@@ -55,7 +81,7 @@ In high-scale or serverless systems, in-memory rate limits fail across distribut
 
 ---
 
-## 4. Unbounded Payloads & Pagination
+## 6. Unbounded Payloads & Pagination
 
 - **Body Size Restrictions**: Reject unbounded JSON payloads. Configure server body parsers with explicit limits (e.g., `express.json({ limit: '1mb' })`).
 - **Strict Database Query Pagination**: Never permit unlimited queries (`db.users.findMany()`). Always enforce mandatory `take` / `limit` caps (e.g. maximum 100 items per request).

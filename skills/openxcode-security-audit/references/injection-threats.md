@@ -1,6 +1,6 @@
 # Injection Threats & Source-to-Sink Taint Analysis
 
-This reference covers untrusted input tracking, injection prevention, and server-side request forgery (SSRF) defenses across the entire application stack.
+This reference covers untrusted input tracking, injection prevention, server-side request forgery (SSRF), open redirects, prototype pollution, and XXE defenses.
 
 ---
 
@@ -60,3 +60,39 @@ When the server fetches content from a user-supplied URL (e.g. webhooks, link pr
 - **Context-Aware Escaping**: Ensure templating engines auto-escape output. Prohibit raw HTML setters (`dangerouslySetInnerHTML`) unless cleansed by an established sanitizer like DOMPurify.
 - **Dynamic URL Protocols**: Guard dynamic links (`<a href={userUrl}>`) to prevent `javascript:` pseudoprotocols. Enforce `http:` or `https:` allowlists.
 - **Content Security Policy (CSP)**: Ensure CSP headers prohibit `unsafe-inline` and `unsafe-eval`.
+
+---
+
+## 5. Open Redirect Prevention
+
+- **Validate Redirect Targets**: Never redirect callers to unvalidated user-supplied parameters (`res.redirect(req.query.returnUrl)`).
+- **Strict Relative Path Constraint**: If redirecting locally, enforce that the path begins with a single forward slash `/` and does NOT start with `//` or `/\` (which modern browsers treat as external protocol-relative URLs).
+- **Domain Allowlisting**: If external redirects are necessary, strictly validate the hostname against an explicit server-side allowlist.
+
+---
+
+## 6. Clickjacking & UI Redressing
+
+- **Frame Framing Restrictions**: Configure HTTP response headers to prevent malicious sites from embedding the application inside hidden `<iframe>` overlays:
+  - `X-Frame-Options: DENY` (or `SAMEORIGIN`)
+  - CSP: `frame-ancestors 'none'` (or `frame-ancestors 'self'`)
+
+---
+
+## 7. Prototype Pollution Prevention (JavaScript / Node.js)
+
+- **Unsafe Object Merging**: Prevent recursive merges, `Object.assign`, or JSON clones from modifying `__proto__`, `constructor`, or `prototype` keys on root objects.
+- **Safe Object Dictionaries**: Use `Object.create(null)` for key-value maps to ensure no prototype inheritance exists, or freeze prototypes via `Object.freeze(Object.prototype)`.
+
+---
+
+## 8. Path Traversal & XML External Entity (XXE)
+
+- **Path Traversal Defense**: Never concatenate user input directly into file paths (`path.join(__dirname, userInput)`). Resolve absolute paths using `path.resolve()` and verify that the target path begins strictly with the allowed base directory:
+  ```typescript
+  const safePath = path.resolve(BASE_DIR, userInput);
+  if (!safePath.startsWith(BASE_DIR)) {
+    throw new SecurityError("Path traversal detected");
+  }
+  ```
+- **XXE Prevention**: When parsing XML, disable external entity resolution (`disallow-doctype-decl: true`, `resolveExternals: false`).

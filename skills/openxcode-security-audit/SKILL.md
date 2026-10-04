@@ -28,11 +28,11 @@ Select which security domain you would like to audit:
 [2] Data Exposure, KMS & Observability ([references/data-exposure.md](references/data-exposure.md))
     - Signed/presigned URLs, console.log stripping, source maps, SSR hydration leaks, KMS, SOC 2 audit logs
 [3] Injection & Taint Analysis ([references/injection-threats.md](references/injection-threats.md))
-    - Source-to-sink taint tracking, SQLi, NoSQLi, SSRF, DOM XSS, command injection
+    - Source-to-sink taint tracking, SQLi/NoSQLi, SSRF, DOM XSS, Open Redirects, Prototype Pollution, XXE
 [4] Broken Access Control, Multi-Tenancy & Auth ([references/access-control.md](references/access-control.md))
-    - IDOR, tenant boundaries, caller ownership checks, session cookies, JWT, Argon2id password hashing
-[5] API Abuse, Distributed Rate Limiting & Anti-Spam ([references/api-security.md](references/api-security.md))
-    - Zero-bloat honeypot anti-spam, bot timing checks, Redis sliding window rate limits, Denial of Wallet (DoW)
+    - IDOR, tenant boundaries, caller ownership checks, session cookies, JWT, Password Reset tokens, OAuth PKCE, MFA
+[5] API Abuse, Rate Limiting & Webhook Integrity ([references/api-security.md](references/api-security.md))
+    - Webhook HMAC validation, GraphQL/WebSocket security, Honeypot bot traps, Redis sliding window, Denial of Wallet (DoW)
 
 Reply with the option number (e.g. 1, 2) or domain name.
 ```

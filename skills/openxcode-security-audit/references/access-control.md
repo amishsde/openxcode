@@ -1,6 +1,6 @@
 # Broken Access Control, Multi-Tenancy & Authentication
 
-This reference defines rules for evaluating authorization models, multi-tenant isolation, direct object references, session integrity, and password security.
+This reference defines rules for evaluating authorization models, multi-tenant isolation, direct object references, session integrity, password recovery, and OAuth security.
 
 ---
 
@@ -52,7 +52,25 @@ All cookies conveying session tokens or authentication state must enforce:
 
 ---
 
-## 4. Business Logic Abuse & Race Conditions (TOCTOU)
+## 4. Password Reset & Account Recovery Security
+
+- **Cryptographically Secure Random Tokens**: Reset tokens must be generated using cryptographically strong randomness (e.g. `crypto.randomBytes(32).toString('hex')`). Never use sequential IDs, timestamps, or guessable math.
+- **Short Lifetime & Single Use**: Enforce strict expiration (maximum 10–15 minutes). Invalidate the reset token immediately upon successful password change.
+- **Timing Attack Defense**: Compare reset tokens using constant-time string comparison (`crypto.timingSafeEqual`) to prevent side-channel timing discovery.
+- **Session Revocation on Password Change**: Changing or resetting a password must immediately invalidate all existing active sessions and refresh tokens across all devices.
+
+---
+
+## 5. OAuth 2.0, OpenID Connect & Step-Up Auth (MFA)
+
+- **PKCE Enforcement**: Mandatory Proof Key for Code Exchange (PKCE) with `S256` code challenge for all Single Page Applications (SPAs) and public mobile clients to prevent authorization code interception.
+- **State Parameter CSRF Guard**: Generate a cryptographically random, unguessable `state` parameter bound to the user session before redirecting to identity providers; verify `state` matches identically on the callback.
+- **Exact Redirect URI Matching**: Strict, exact string matching of callback URLs against an authorized allowlist. Prohibit wildcards or open subdomain patterns in OAuth redirect configs.
+- **Step-Up Authentication (MFA)**: Require re-authentication or multi-factor verification before executing high-impact security actions (changing primary email, disabling 2FA, updating payout banking details).
+
+---
+
+## 6. Business Logic Abuse & Race Conditions (TOCTOU)
 
 - **Atomic State Updates**: Prevent Time-of-Check to Time-of-Use (TOCTOU) race conditions in balance debits, coupon redemptions, and inventory holds. Use database transactions with row-level locks (`SELECT ... FOR UPDATE`) or atomic decrement operations.
 - **Parameter & Price Tampering**: Never trust client-supplied prices, discount percentages, or quantities. Always calculate order totals server-side and validate that quantities are positive integers (`quantity > 0`).
