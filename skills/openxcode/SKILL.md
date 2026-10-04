@@ -78,4 +78,6 @@ Engineering simplicity never compromises security or reliability across any inte
 - **Defensive Error Handling**: Safeguard data integrity and user state without leaking stack traces or internal secrets.
 - **Secure Cryptography & Defaults**: Standard algorithms (Argon2, bcrypt, AES-GCM, SHA-256) and secure web attributes (HTTPS, `HttpOnly`, `SameSite`).
 - **Accessibility & Call Tracing**: Full compliance with a11y standards and full blast-radius tracing before edits.
+- **UI Design Principles**: Strictly follow `ui-design-principles` whenever generating interface code (mobile-first 320px–4K, 4px spacing scale, fluid clamp typography, Material Design 3 patterns, semantic color tokens, and zero emojis).
+
 
