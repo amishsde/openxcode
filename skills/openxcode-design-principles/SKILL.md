@@ -20,7 +20,10 @@ Follow every rule below whenever you generate UI code (web, hybrid or app). If a
 - Look and feel on mobile must match a modern native Android app (Material Design 3).
 - No emojis anywhere. Use icons only.
 - No decorative or attention-grabbing animation. Only functional, short, subtle motion.
-- Never hard-code random values. Use the tokens and scales defined in this document.
+- Never hard-code random values. Use the tokens and scales defined in this document or import from [references/tokens.css](file:///d:/amishsde/amish-project/production/openxcode/skills/openxcode-design-principles/references/tokens.css).
+
+> [!TIP]
+> **Anthropic Progressive Disclosure Reference**: For full CSS design tokens, standard reset, and variables, refer directly to [`references/tokens.css`](file:///d:/amishsde/amish-project/production/openxcode/skills/openxcode-design-principles/references/tokens.css).
 
 ---
 
